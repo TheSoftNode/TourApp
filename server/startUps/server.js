@@ -1,7 +1,6 @@
-import path from "path";
 import dotenv from "dotenv";
-import connectDB from "../dataAccess/mongoDB";
-import app from "./app";
+import connectDB from "../dataAccess/mongoDB.js";
+import app from "./app.js";
 
 // Handle uncaughtException
 process.on("uncaughtException", (err) => {
@@ -10,10 +9,7 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-// Resolve config.env path
-dotenv.config({
-  path: path.resolve(__dirname, "../config/config.env"),
-});
+dotenv.config({ path: "./config/config.env" });
 
 // Bring in the connection string
 const DB_CLOUD = process.env.DB_CLOUD.replace(

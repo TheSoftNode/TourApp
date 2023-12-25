@@ -5,6 +5,7 @@ import morgan from "morgan";
 // import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { mountedRoutes } from "./routes.js";
+import globalErrorHandler from "../errorHandlers/errorHandler.js";
 
 const app = express();
 
@@ -31,7 +32,10 @@ app.use(cookieParser());
 
 // The cross origin resource sharing
 const corOptions = cors({
-  origin: process.env.ORIGIN,
+  //   origin: process.env.ORIGIN,
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
 });
 app.use(corOptions);
 
@@ -43,5 +47,7 @@ app.all("*", (req, res, next) => {
   next(err);
   // next(new AppError(`Can't find ${req.originalUrl} in this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 
 export default app;
