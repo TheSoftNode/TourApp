@@ -63,4 +63,8 @@ export default class Email {
       "Your password reset token (valid for only 10 minutes)"
     );
   }
+
+  async accountReactivated() {
+    await this.send("re-activation.ejs", "Account Reactivated!");
+  }
 }

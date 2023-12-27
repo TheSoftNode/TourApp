@@ -9,6 +9,7 @@ import {
   getOne,
   updateOne,
 } from "../services/GenericService.js";
+import Email from "../emails/email.js";
 
 // const multerStorage = multer.diskStorage({
 //   destination: (req, file, cb) => {
@@ -117,7 +118,32 @@ export const updateUserRole = catchAsync(async (req, res, next) => {
 });
 
 export const reactivateAccount = catchAsync(async (req, res, next) => {
-  const user = await User.find().setOptions({ role: "admin" });
+  const user = await User.findOne({ email: req.body.email }).setOptions({
+    role: "admin",
+  });
+
+  if (!user)
+    return next(
+      new AppError(
+        "Data not found. Please SignUp to get access to the resources",
+        404
+      )
+    );
+
+  if (user.active == true)
+    return next(
+      new AppError("Login to your Account. Your account is still active", 400)
+    );
+
+  user.active = true;
+  await user.save({ validateBeforeSave: false });
+
+  const data = {
+    user: { name: user.name },
+  };
+
+  await new Email(user, data).accountReactivated();
+
   res.status(200).json({
     status: "success",
     data: user,
