@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
@@ -8,6 +9,13 @@ import { mountedRoutes } from "./routes.js";
 import globalErrorHandler from "../errorHandlers/errorHandler.js";
 
 const app = express();
+// const __dirname = path.resolve();
+
+// app.set('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
+
+// // Serving static files
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // Always put at the top of all middlewares
 // SET Security HTTP headers
