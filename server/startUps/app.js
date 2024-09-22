@@ -5,17 +5,14 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 // import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import swaggerUi from "swagger-ui-express";
 import { mountedRoutes } from "./routes.js";
 import globalErrorHandler from "../errorHandlers/errorHandler.js";
+import swaggerDocs from "../swagger/swaggerDoc.js";
 
 const app = express();
-// const __dirname = path.resolve();
+const __dirname = path.resolve();
 
-// app.set('view engine', 'pug');
-// app.set('views', path.join(__dirname, 'views'));
-
-// // Serving static files
-// app.use(express.static(path.join(__dirname, 'public')));
 
 // Always put at the top of all middlewares
 // SET Security HTTP headers
@@ -48,6 +45,7 @@ const corOptions = cors({
 app.use(corOptions);
 
 mountedRoutes(app);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.all("*", (req, res, next) => {
   const err = new Error(`Can't find ${req.originalUrl} in this server!`);
