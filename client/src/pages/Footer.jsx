@@ -1,10 +1,10 @@
 import React from 'react';
-
+import logo_green from "../assets/img/logo-green.png";
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__logo">
-        <img src="../assets/img/logo-green.png" alt="Natour logo" />
+        <img src={logo_green} alt="Natour logo" />
       </div>
       <ul className="footer__nav">
         <li><a href="#">About us</a></li>
