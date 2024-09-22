@@ -15,11 +15,11 @@ const Header = ({ user }) => {
             <a className="nav__el nav__el--logout">Log out</a>
             <a href="/me" className="nav__el">
               <img
-                src={`../assets/img/users/${user.photo}`}
-                alt={`Photo of ${user.name}`}
+                src={`../assets/img/users/${user?.photo}`}
+                alt={`Photo of ${user?.name}`}
                 className="nav__user-img"
               />
-              <span>{user.name.split(' ')[0]}</span>
+              <span>{user?.name.split(' ')[0]}</span>
             </a>
           </>
         ) : (
