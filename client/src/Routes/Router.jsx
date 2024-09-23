@@ -1,10 +1,11 @@
+import {Routes, Route} from 'react-router-dom';
+
 import Login from '../Pages/Login'
 import SignUp from '../pages/SignUp'
 import ToursList from '../pages/ToursList';
 import TourDetails from '../pages/TourDetails';
 import EmailVerified from '../pages/EmailVerified';
-
-import {Routes, Route} from 'react-router-dom';
+import EmailVerificationSent from '../pages/EmailVerificationSent';
 // import CheckoutSuccess from '../Pages/Doctors/CheckoutSucess'
 // import CheckoutFail from '../Pages/Doctors/CheckoutFail'
 // import ForgotPassword from '@/Pages/ForgotPassword'
@@ -19,7 +20,8 @@ const Routers = () => {
         <Route path="/tours/:id" element={<TourDetails/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<SignUp/>} />
-        <Route path="/verify" element={<EmailVerified/>} />
+        <Route path="/verify" element={<EmailVerificationSent/>} />
+        <Route path="/verified" element={<EmailVerified/>} />
         {/* <Route path="/contact" element={<Contact/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword/>} />
