@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../config';
+import { authContext } from '../context/AuthContext';
+import { toast } from "react-toastify";
+// import HashLoader from "react-spinners/HashLoader"
+import * as Yup from 'yup';
 
 const SignUp = () =>
 {
@@ -115,7 +120,7 @@ const SignUp = () =>
 
           </div>
           {formErrors && formErrors.name && (
-            <span className="text-red-500 pt-2 block">{formErrors.name}</span>
+            <span className="input_error">{formErrors.name}</span>
           )}
 
           <div className="form__group">
@@ -133,7 +138,7 @@ const SignUp = () =>
             />
           </div>
           {formErrors && formErrors.email && (
-            <span className="text-red-500 pt-2 block">{formErrors.email}</span>
+            <span className="input_error">{formErrors.email}</span>
           )}
 
           <div className="form__group ma-bt-md">
@@ -141,7 +146,7 @@ const SignUp = () =>
               Password
             </label>
             <input
-              id="password"
+              name="password"
               className="form__input"
               type="password"
               placeholder="••••••••"
@@ -152,10 +157,10 @@ const SignUp = () =>
             />
           </div>
           {formErrors && formErrors.password && (
-            <span className="text-red-500 pt-2 block">{formErrors.password}</span>
+            <span className="input_error">{formErrors.password}</span>
           )}
 
-          <div className="form__group ma-bt-md">
+          <div className="form__group ma-bt-md" style={{ paddingBottom: "0.7rem !important" }}>
             <label className="form__label" htmlFor="confirm-password">
               Confirm Password
             </label>
@@ -171,7 +176,7 @@ const SignUp = () =>
             />
           </div>
           {formErrors && formErrors.confirmPassword && (
-            <span className="text-red-500 pt-2 block">{formErrors.confirmPassword}</span>
+            <span className="input_error">{formErrors.confirmPassword}</span>
           )}
 
           <div className="form__group">
