@@ -156,7 +156,7 @@ const Login = () =>
       else
       {
         // throw new Error(result.Error)
-        toast.error("Something isn't right! Check your Network or Try again later", { className: "toast-message" });
+        toast.error(result.message, { className: "toast-message" });
         setLoading(false);
         console.log(result);
       }

@@ -13,7 +13,6 @@ const UserSettings = () =>
   const { data: userData, loading, error } = useGetProfile(`${BASE_URL}/users/me`);
   const user = userData?.data?.data;
 
-  console.log(userData)
 
   // const refreshProfile = () =>
   // {

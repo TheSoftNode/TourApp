@@ -77,7 +77,7 @@ const SignUp = () =>
       }
       else
       {
-        toast.error("Something is wrong! Please check your network or try again later", { className: "toast-message" });
+        toast.error(result.message, { className: "toast-message" });
         setLoading(false);
         console.log(result);
       }

@@ -26,7 +26,7 @@ const Routers = () =>
     <Route path="/verify" element={<EmailVerificationSent />} />
     <Route path="/verified" element={<EmailVerified />} />
     <Route path="/me" element={<UserSettings />} />
-    <Route path="/reset-password/:token" element={<ResetPassword/>} />
+    <Route path="/reset-password/:token" element={<ResetPassword />} />
     {/* <Route path="/contact" element={<Contact/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/checkout-success" element={<CheckoutSuccess />} />

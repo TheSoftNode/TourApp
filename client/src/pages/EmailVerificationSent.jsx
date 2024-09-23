@@ -61,7 +61,7 @@ const EmailVerificationSent = () =>
       else
       {
         // throw new Error(result.Error)
-        toast.error(result.message);
+        toast.error(result.message, { className: "toast-message" });
         setLoading(false);
         // console.log(result);
       }

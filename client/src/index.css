@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  section {
+  /* section {
     @apply py-[75px];
-  }
+  } */
 
   :root {
     --background: 0 0% 100%;

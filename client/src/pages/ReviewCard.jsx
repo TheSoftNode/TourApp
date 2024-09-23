@@ -1,12 +1,13 @@
 import React from 'react';
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review }) =>
+{
   return (
     <div className="reviews__card">
       <div className="reviews__avatar">
         <img
           className="reviews__avatar-img"
-          src={`../assets/img/users/${review.user.photo}`}
+          src={`/img/users/${review.user.photo}`}
           alt={review.user.name}
         />
         <h6 className="reviews__user">{review.user.name}</h6>
@@ -16,11 +17,10 @@ const ReviewCard = ({ review }) => {
         {[1, 2, 3, 4, 5].map((star) => (
           <svg
             key={star}
-            className={`reviews__star reviews__star--${
-              review.rating >= star ? 'active' : 'inactive'
-            }`}
+            className={`reviews__star reviews__star--${review.rating >= star ? 'active' : 'inactive'
+              }`}
           >
-            <use xlinkHref="../assets/img/icons.svg#icon-star"></use>
+            <use xlinkHref="/img/icons.svg#icon-star"></use>
           </svg>
         ))}
       </div>

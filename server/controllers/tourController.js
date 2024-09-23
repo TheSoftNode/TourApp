@@ -3,20 +3,24 @@ import multer from "multer";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../errorHandlers/appError.js";
 import sharp from "sharp";
-import {
-  createOne,
-  deleteOne,
-  getAll,
-  getOne,
-  updateOne,
-} from "../services/GenericService.js";
+import
+  {
+    createOne,
+    deleteOne,
+    getAll,
+    getOne,
+    updateOne,
+  } from "../services/GenericService.js";
 
 const multerStorage = multer.memoryStorage();
 
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
+const multerFilter = (req, file, cb) =>
+{
+  if (file.mimetype.startsWith("image"))
+  {
     cb(null, true);
-  } else {
+  } else
+  {
     cb(new AppError("Not an image! Please upload only images.", 400), false);
   }
 };
@@ -34,7 +38,8 @@ export const uploadTourImages = upload.fields([
 // upload.single('image') req.file
 // upload.array('images', 5) req.files
 
-export const resizeTourImages = catchAsync(async (req, res, next) => {
+export const resizeTourImages = catchAsync(async (req, res, next) =>
+{
   if (!req.files.imageCover || !req.files.images) return next();
 
   // 1) Cover image
@@ -49,7 +54,8 @@ export const resizeTourImages = catchAsync(async (req, res, next) => {
   req.body.images = [];
 
   await Promise.all(
-    req.files.images.map(async (file, i) => {
+    req.files.images.map(async (file, i) =>
+    {
       const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
 
       await sharp(file.buffer)
@@ -65,7 +71,8 @@ export const resizeTourImages = catchAsync(async (req, res, next) => {
   next();
 });
 
-export const aliasTopTours = (req, res, next) => {
+export const aliasTopTours = (req, res, next) =>
+{
   req.query.limit = "5";
   req.query.sort = "-ratingsAverage,price";
   req.query.fields = "name,price,ratingsAverage,summary,difficulty";
@@ -78,7 +85,8 @@ export const createTour = createOne(Tour);
 export const updateTour = updateOne(Tour);
 export const deleteTour = deleteOne(Tour);
 
-export const getTourStats = catchAsync(async (req, res, next) => {
+export const getTourStats = catchAsync(async (req, res, next) =>
+{
   const stats = await Tour.aggregate([
     {
       $match: { ratingsAverage: { $gt: 4.5 } },
@@ -110,7 +118,8 @@ export const getTourStats = catchAsync(async (req, res, next) => {
   });
 });
 
-export const getMonthlyPlan = catchAsync(async (req, res, next) => {
+export const getMonthlyPlan = catchAsync(async (req, res, next) =>
+{
   const year = req.params.year * 1; // 2021
 
   const plan = await Tour.aggregate([
@@ -158,13 +167,15 @@ export const getMonthlyPlan = catchAsync(async (req, res, next) => {
 
 // /tours-within/:distance/center/:latlng/unit/:unit
 // /tours-within/233/center/34.111745,-118.113491/unit/mi
-export const getToursWithin = catchAsync(async (req, res, next) => {
+export const getToursWithin = catchAsync(async (req, res, next) =>
+{
   const { distance, latlng, unit } = req.params;
   const [lat, lng] = latlng.split(",");
 
   const radius = unit === "mi" ? distance / 3963.2 : distance / 6378.1;
 
-  if (!lat || !lng) {
+  if (!lat || !lng)
+  {
     next(
       new AppError(
         "Please provide latitute and longitude in the format lat,lng.",
@@ -186,13 +197,15 @@ export const getToursWithin = catchAsync(async (req, res, next) => {
   });
 });
 
-export const getDistances = catchAsync(async (req, res, next) => {
+export const getDistances = catchAsync(async (req, res, next) =>
+{
   const { latlng, unit } = req.params;
   const [lat, lng] = latlng.split(",");
 
   const multiplier = unit === "mi" ? 0.000621371 : 0.001;
 
-  if (!lat || !lng) {
+  if (!lat || !lng)
+  {
     next(
       new AppError(
         "Please provide latitude and longitude in the format lat,lng.",

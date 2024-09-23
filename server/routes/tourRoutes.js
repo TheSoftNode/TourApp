@@ -1,17 +1,17 @@
 import express from "express";
 import
-  {
-    aliasTopTours,
-    createTour,
-    deleteTour,
-    getAllTours,
-    getDistances,
-    getMonthlyPlan,
-    getTour,
-    getTourStats,
-    getToursWithin,
-    updateTour,
-  } from "../controllers/tourController.js";
+{
+  aliasTopTours,
+  createTour,
+  deleteTour,
+  getAllTours,
+  getDistances,
+  getMonthlyPlan,
+  getTour,
+  getTourStats,
+  getToursWithin,
+  updateTour,
+} from "../controllers/tourController.js";
 import { isAuthenticated } from "../middlewares/protectRoutes.js";
 import restrictTo from "../middlewares/roleManager.js";
 import reviewRouter from "../routes/reviewRoutes.js";
