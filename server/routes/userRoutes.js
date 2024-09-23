@@ -1,30 +1,32 @@
 import express from "express";
-import {
-    forgotPassword,
-    login,
-    logout,
-    refreshToken,
-    resetPassword,
-    signUp,
-    updatePassword,
-    verifyAccount,
-} from "../controllers/authController.js";
+import
+    {
+        forgotPassword,
+        login,
+        logout,
+        refreshToken,
+        resetPassword,
+        signUp,
+        updatePassword,
+        verifyAccount,
+    } from "../controllers/authController.js";
 import { isAuthenticated } from "../middlewares/protectRoutes.js";
 import restrictTo from "../middlewares/roleManager.js";
-import {
-    createUser,
-    deleteMe,
-    deleteUser,
-    getAllUsers,
-    getMe,
-    getUser,
-    reactivateAccount,
-    resizeUserPhoto,
-    updateMe,
-    updateUser,
-    updateUserRole,
-    uploadUserPhoto,
-} from "../controllers/userController.js";
+import
+    {
+        createUser,
+        deleteMe,
+        deleteUser,
+        getAllUsers,
+        getMe,
+        getUser,
+        reactivateAccount,
+        resizeUserPhoto,
+        updateMe,
+        updateUser,
+        updateUserRole,
+        uploadUserPhoto,
+    } from "../controllers/userController.js";
 
 const router = express.Router();
 
