@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from '../config';
 import { authContext } from '../context/AuthContext';
 import { toast } from "react-toastify";
-// import HashLoader from "react-spinners/HashLoader"
+import HashLoader from "react-spinners/HashLoader"
 import * as Yup from 'yup';
 
 const SignUp = () =>
@@ -58,18 +58,22 @@ const SignUp = () =>
       })
 
       const result = await res.json();
+      console.log(result)
 
       if (res.ok)
       {
         dispatch({
           type: "ACTIVATE_USER",
           payload: {
-            activationToken: result.activationToken,
+            activationToken: result.verificationToken,
+            activation_Code: result.activationCode
           }
         })
 
+        console.log(result.activationCode)
+
         setLoading(false);
-        toast.success(result.message)
+        // toast.success(result.message)
         navigate("/verify");
       }
       else
@@ -181,7 +185,7 @@ const SignUp = () =>
 
           <div className="form__group">
             <button className="btn btn--green" type="submit">
-              Sign Up
+            {loading ? <HashLoader size={35} color="#ffffff" /> : "Sign Up"}
             </button>
           </div>
 
