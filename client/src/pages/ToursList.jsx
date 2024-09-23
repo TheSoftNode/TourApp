@@ -1,17 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ErrorPage from './Error';
+import Loading from '../components/Loader/Loading';
+import useFetchData from '../hooks/useFetchData';
+import { BASE_URL } from '../config';
 
-const ToursList = ({ tours }) => {
+const ToursList = () =>
+{
+  const [query, setQuery] = useState('');
+    const [debounceQuery, setDebounceQuery] = useState("")
+
+
+    const handleSearch = () => {
+        setQuery(query.trim());
+        console.log('handle search')
+    };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebounceQuery(query)
+        }, 700)
+
+        return () => clearTimeout(timeout)
+    }, [query])
+
+    let data;
+
+    if (debounceQuery === ""){
+        data = useFetchData(`${BASE_URL}/tours`,null, false)
+    }
+    else {
+        data = useFetchData(`${BASE_URL}/doctors?specialization=${debounceQuery}`, null, false);
+    }
+
+    const error = data.error;
+    const loading = data.loading;
+    const tours = data.data;
+
   return (
     <main className="main">
       <div className="card-container">
-        {tours.map((tour) => (
+
+      {!error && loading && <Loading />}
+      {!loading &&error && <ErrorPage msg={error.message} />}
+
+        {tours?.data?.data.map((tour) => (
           <div className="card" key={tour.id}>
             <div className="card__header">
               <div className="card__picture">
                 <div className="card__picture-overlay">&nbsp;</div>
                 <img
                   className="card__picture-img"
-                  src={`../assets/img/tours/${tour.imageCover}`}
+                  src={`/img/tours/${tour.imageCover}`}
                   alt={tour.name}
                 />
               </div>
@@ -28,14 +67,14 @@ const ToursList = ({ tours }) => {
 
               <div className="card__data">
                 <svg className="card__icon">
-                  <use xlinkHref="../assets/img/icons.svg#icon-map-pin"></use>
+                  <use xlinkHref="/img/icons.svg#icon-map-pin"></use>
                 </svg>
                 <span>{tour.startLocation.description}</span>
               </div>
 
               <div className="card__data">
                 <svg className="card__icon">
-                  <use xlinkHref="../assets/img/icons.svg#icon-calendar"></use>
+                  <use xlinkHref="/img/icons.svg#icon-calendar"></use>
                 </svg>
                 <span>
                   {new Date(tour.startDates[0]).toLocaleString('en-us', {
@@ -47,14 +86,14 @@ const ToursList = ({ tours }) => {
 
               <div className="card__data">
                 <svg className="card__icon">
-                  <use xlinkHref="../assets/img/icons.svg#icon-flag"></use>
+                  <use xlinkHref="/img/icons.svg#icon-flag"></use>
                 </svg>
                 <span>{`${tour.locations.length} stops`}</span>
               </div>
 
               <div className="card__data">
                 <svg className="card__icon">
-                  <use xlinkHref="../assets/img/icons.svg#icon-user"></use>
+                  <use xlinkHref="/img/icons.svg#icon-user"></use>
                 </svg>
                 <span>{`${tour.maxGroupSize} people`}</span>
               </div>

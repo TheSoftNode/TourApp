@@ -1,5 +1,6 @@
 import Header from './pages/Header'
 import Footer from './pages/Footer'
+import Routers from './Routes/Router'
 
 function App()
 {
@@ -8,7 +9,7 @@ function App()
     <>
       <Header />
       <main>
-
+        <Routers />
       </main>
       <Footer />
     </>
