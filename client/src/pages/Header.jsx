@@ -1,10 +1,19 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { authContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () =>
 {
   const headerRef = useRef(null)
-  const { user, token } = useContext(authContext);
+  const { user, token, dispatch } = useContext(authContext);
+  const navigate = useNavigate()
+
+
+  const handleLogout = () =>
+  {
+    dispatch({ type: "LOGOUT" })
+    navigate("/")
+  }
 
   const handleStickyHeader = () =>
   {
@@ -40,7 +49,7 @@ const Header = () =>
       <nav className="nav nav--user">
         {user ? (
           <div className='flex justify-between gap-x-5'>
-            <a className=" nav__el !mt-4 sm:!mt-0">Log out</a>
+            <a onClick={handleLogout} className=" nav__el !mt-4 sm:!mt-0">Log out</a>
             <a href="/me" className="nav__el">
               <img
                 src={`/img/users/${user?.photo}`}

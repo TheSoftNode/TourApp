@@ -6,6 +6,7 @@ import ToursList from '../pages/ToursList';
 import TourDetails from '../pages/TourDetails';
 import EmailVerified from '../pages/EmailVerified';
 import EmailVerificationSent from '../pages/EmailVerificationSent';
+import UserSettings from '../pages/UserSettings';
 // import CheckoutSuccess from '../Pages/Doctors/CheckoutSucess'
 // import CheckoutFail from '../Pages/Doctors/CheckoutFail'
 // import ForgotPassword from '@/Pages/ForgotPassword'
@@ -23,6 +24,7 @@ const Routers = () =>
     <Route path="/signup" element={<SignUp />} />
     <Route path="/verify" element={<EmailVerificationSent />} />
     <Route path="/verified" element={<EmailVerified />} />
+    <Route path="/me" element={<UserSettings />} />
     {/* <Route path="/contact" element={<Contact/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword/>} />

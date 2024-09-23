@@ -31,12 +31,12 @@ const useFetchData = (url, key = null, requireToken = true) =>
                 }
 
                 const result = await res.json();
-                // console.log(result)
+                console.log(result)
 
                 if (!res.ok)
                 {
                     setError(result.message);
-                    console.log(result)
+                    // console.log(result)
                     // throw new Error(result.message)
                 }
 

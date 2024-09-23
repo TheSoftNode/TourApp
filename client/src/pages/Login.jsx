@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { BASE_URL } from '../config';
 import * as Yup from 'yup';
 import PasswordForgot from '../pages/PasswordForgot';
+import HashLoader from 'react-spinners/HashLoader';
 
 const Login = () =>
 {
@@ -155,7 +156,7 @@ const Login = () =>
       else
       {
         // throw new Error(result.Error)
-        toast.error(result.message, { className: "toast-message" });
+        toast.error("Something isn't right! Check your Network or Try again later", { className: "toast-message" });
         setLoading(false);
         console.log(result);
       }
@@ -185,7 +186,7 @@ const Login = () =>
 
   return (
     <main className="main">
-      <div className={`login-form ${isModalOpen ? 'pointer-events-none' : ''}`}>
+      <div className={`login-form  sm:w-[57rem] ${isModalOpen ? 'pointer-events-none' : ''}`}>
         <h2 className="heading-secondary ma-bt-lg">Log into your account</h2>
         <form className="form form--login" onSubmit={handleSubmit}>
           <div className="form__group">
@@ -221,7 +222,7 @@ const Login = () =>
 
           <div className="form__group">
             <button className="btn btn--green" type="submit">
-              Login
+              {loading ? <HashLoader size={35} color="#ffffff" /> : "Login"}
             </button>
           </div>
 

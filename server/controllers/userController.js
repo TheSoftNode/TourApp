@@ -3,12 +3,13 @@ import sharp from "sharp";
 import User from "./../models/userModel.js";
 import catchAsync from "./../utils/catchAsync.js";
 import AppError from "../errorHandlers/appError.js";
-import {
-  deleteOne,
-  getAll,
-  getOne,
-  updateOne,
-} from "../services/GenericService.js";
+import
+  {
+    deleteOne,
+    getAll,
+    getOne,
+    updateOne,
+  } from "../services/GenericService.js";
 import Email from "../emails/email.js";
 
 // const multerStorage = multer.diskStorage({
@@ -22,10 +23,13 @@ import Email from "../emails/email.js";
 // });
 const multerStorage = multer.memoryStorage();
 
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
+const multerFilter = (req, file, cb) =>
+{
+  if (file.mimetype.startsWith("image"))
+  {
     cb(null, true);
-  } else {
+  } else
+  {
     cb(new AppError("Not an image! Please upload only images.", 400), false);
   }
 };
@@ -37,7 +41,8 @@ const upload = multer({
 
 export const uploadUserPhoto = upload.single("photo");
 
-export const resizeUserPhoto = catchAsync(async (req, res, next) => {
+export const resizeUserPhoto = catchAsync(async (req, res, next) =>
+{
   if (!req.file) return next();
 
   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
@@ -51,22 +56,27 @@ export const resizeUserPhoto = catchAsync(async (req, res, next) => {
   next();
 });
 
-const filterObj = (obj, ...allowedFields) => {
+const filterObj = (obj, ...allowedFields) =>
+{
   const newObj = {};
-  Object.keys(obj).forEach((el) => {
+  Object.keys(obj).forEach((el) =>
+  {
     if (allowedFields.includes(el)) newObj[el] = obj[el];
   });
   return newObj;
 };
 
-export const getMe = (req, res, next) => {
+export const getMe = (req, res, next) =>
+{
   req.params.id = req.user.id;
   next();
 };
 
-export const updateMe = catchAsync(async (req, res, next) => {
+export const updateMe = catchAsync(async (req, res, next) =>
+{
   // 1) Create error if user POSTs password data
-  if (req.body.password || req.body.passwordConfirm) {
+  if (req.body.password || req.body.passwordConfirm)
+  {
     return next(
       new AppError(
         "This route is not for password updates. Please use /updateMyPassword.",
@@ -93,7 +103,8 @@ export const updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-export const deleteMe = catchAsync(async (req, res, next) => {
+export const deleteMe = catchAsync(async (req, res, next) =>
+{
   await User.findByIdAndUpdate(req.user.id, { active: false });
 
   res.status(204).json({
@@ -102,7 +113,8 @@ export const deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-export const updateUserRole = catchAsync(async (req, res, next) => {
+export const updateUserRole = catchAsync(async (req, res, next) =>
+{
   const user = await User.findByIdAndUpdate(
     req.params.id,
     {
@@ -117,7 +129,8 @@ export const updateUserRole = catchAsync(async (req, res, next) => {
   });
 });
 
-export const reactivateAccount = catchAsync(async (req, res, next) => {
+export const reactivateAccount = catchAsync(async (req, res, next) =>
+{
   const user = await User.findOne({ email: req.body.email }).setOptions({
     role: "admin",
   });
@@ -150,7 +163,8 @@ export const reactivateAccount = catchAsync(async (req, res, next) => {
   });
 });
 
-export const createUser = (req, res) => {
+export const createUser = (req, res) =>
+{
   res.status(500).json({
     status: "error",
     message: "This route is not defined! Please use /signup instead",
