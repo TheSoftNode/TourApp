@@ -22,7 +22,7 @@ const Routers = () =>
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<SignUp />} />
     <Route path="/verify" element={<EmailVerificationSent />} />
-    <Route path="/signup" element={<EmailVerified />} />
+    <Route path="/verified" element={<EmailVerified />} />
     {/* <Route path="/contact" element={<Contact/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword/>} />

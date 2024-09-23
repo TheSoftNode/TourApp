@@ -55,8 +55,8 @@ const EmailVerificationSent = () =>
       {
         setLoading(false);
 
-        toast.success("Verification Successful")
-        navigate("/login");
+        // toast.success("Verification Successful")
+        navigate("/verified");
       }
       else
       {

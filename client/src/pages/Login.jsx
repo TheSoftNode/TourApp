@@ -227,9 +227,9 @@ const Login = () =>
 
           <div className="form__group">
             <p className="form__text">
-              Already have an account?{'  '}
-              <a href="/login" className="form__link mr-2">
-                Log in
+              Don't have an account yet?{'  '}
+              <a href="/signup" className="form__link mx-2">
+                Register
               </a>
               or
               <button onClick={handleForgotPassword} className="form__link ml-2">

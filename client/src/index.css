@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   section {
     @apply py-[75px];
@@ -102,7 +98,7 @@ body {
   font-weight: 300;
   font-family: 'Lato', sans-serif;
   color: #777;
-  padding: 0.3rem 3rem;
+  /* padding: 0.3rem 3rem; */
   min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -115,7 +111,7 @@ body {
 
 .main {
   background-color: #f7f7f7;
-  padding: 8rem 6rem;
+  padding: 4rem 0;
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -368,29 +364,9 @@ body {
 
 .header {
   background-color: #444;
-  padding: 0 5rem;
   height: 8rem;
-  position: relative;
-  z-index: 100;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
-@media only screen and (max-width: 62.5em) {
-  .header {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-  }
-}
 
 .header__logo img {
   height: 3.5rem;
@@ -1006,8 +982,10 @@ body {
 .nav__el:visited {
   color: #f7f7f7;
   text-transform: uppercase;
-  font-size: 1.6rem;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -1023,11 +1001,13 @@ body {
   font-family: inherit;
 }
 
+
 .nav__el:hover,
 .nav__el:active {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
   text-shadow: 0 0.7rem 1rem black;
+  color: #20bf6b
 }
 
 .nav__el:not(:last-child) {
@@ -1201,13 +1181,13 @@ body {
   border-bottom: 1px solid currentColor;
 }
 
-.card-container {
+/* .card-container {
   max-width: 120rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 7rem;
-}
+} */
 
 .card {
   border-radius: 3px;

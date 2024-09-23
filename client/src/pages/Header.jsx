@@ -1,9 +1,36 @@
-import React from 'react';
-import logo_white from "/img/logo-white.png"
+import React, { useContext, useEffect, useRef } from 'react';
+import { authContext } from '../context/AuthContext';
 
-const Header = ({ user }) => {
+const Header = () =>
+{
+  const headerRef = useRef(null)
+  const { user, token } = useContext(authContext);
+
+  const handleStickyHeader = () =>
+  {
+    window.addEventListener('scroll', () =>
+    {
+      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80)
+      {
+        headerRef?.current?.classList?.add('sticky_header');
+      } else
+      {
+        headerRef?.current?.classList?.remove('sticky_header')
+      }
+    })
+  }
+
+
+  useEffect(() =>
+  {
+    handleStickyHeader()
+
+    return () => window.removeEventListener('scroll', handleStickyHeader)
+  });
+
+
   return (
-    <header className="header">
+    <header className="header flex items-center !py-10 !w-[100vw] dark:bg-[#011027] sm:pr-0 pl-6 bg-emerald-50" ref={headerRef}>
       <nav className="nav nav--tours">
         <a href="/" className="nav__el">All tours</a>
       </nav>
@@ -12,17 +39,17 @@ const Header = ({ user }) => {
       </div>
       <nav className="nav nav--user">
         {user ? (
-          <>
-            <a className="nav__el nav__el--logout">Log out</a>
+          <div className='flex justify-between gap-x-5'>
+            <a className=" nav__el !mt-4 sm:!mt-0">Log out</a>
             <a href="/me" className="nav__el">
               <img
                 src={`/img/users/${user?.photo}`}
                 alt={`Photo of ${user?.name}`}
                 className="nav__user-img"
               />
-              <span>{user?.name.split(' ')[0]}</span>
+              <span className='hidden sm:flex'>{user?.name.split(' ')[0]}</span>
             </a>
-          </>
+          </div>
         ) : (
           <>
             <a href="/login" className="nav__el">Log in</a>

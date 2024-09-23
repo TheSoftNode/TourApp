@@ -58,7 +58,6 @@ const SignUp = () =>
       })
 
       const result = await res.json();
-      console.log(result)
 
       if (res.ok)
       {

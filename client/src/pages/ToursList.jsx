@@ -7,41 +7,47 @@ import { BASE_URL } from '../config';
 const ToursList = () =>
 {
   const [query, setQuery] = useState('');
-    const [debounceQuery, setDebounceQuery] = useState("")
+  const [debounceQuery, setDebounceQuery] = useState("")
 
 
-    const handleSearch = () => {
-        setQuery(query.trim());
-        console.log('handle search')
-    };
+  const handleSearch = () =>
+  {
+    setQuery(query.trim());
+    console.log('handle search')
+  };
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setDebounceQuery(query)
-        }, 700)
+  useEffect(() =>
+  {
+    const timeout = setTimeout(() =>
+    {
+      setDebounceQuery(query)
+    }, 700)
 
-        return () => clearTimeout(timeout)
-    }, [query])
+    return () => clearTimeout(timeout)
+  }, [query])
 
-    let data;
+  let data;
 
-    if (debounceQuery === ""){
-        data = useFetchData(`${BASE_URL}/tours`,null, false)
-    }
-    else {
-        data = useFetchData(`${BASE_URL}/doctors?specialization=${debounceQuery}`, null, false);
-    }
+  if (debounceQuery === "")
+  {
+    data = useFetchData(`${BASE_URL}/tours`, null, false)
+  }
+  // else
+  // {
+  //   data = useFetchData(`${BASE_URL}/tours?quer{debounceQuery}`, null, false);
+  // }
 
-    const error = data.error;
-    const loading = data.loading;
-    const tours = data.data;
+  const error = data.error;
+  const loading = data.loading;
+  const tours = data.data;
 
   return (
     <main className="main">
-      <div className="card-container">
+     
+      <div className="max-w-[110rem] mx-auto grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-7">
 
-      {!error && loading && <Loading />}
-      {!loading &&error && <ErrorPage msg={error.message} />}
+        {!error && loading && <Loading />}
+        {!loading && error && <ErrorPage msg={error.message} />}
 
         {tours?.data?.data.map((tour) => (
           <div className="card" key={tour.id}>
