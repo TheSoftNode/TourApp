@@ -57,6 +57,10 @@ export default class Email {
     await this.send("activation-mail.ejs", "Activate Your Account");
   }
 
+  async welcome() {
+    await this.send("welcome.ejs", "We're happy to have you!");
+  }
+
   async sendPasswordReset() {
     await this.send(
       "forgot-password.ejs",
