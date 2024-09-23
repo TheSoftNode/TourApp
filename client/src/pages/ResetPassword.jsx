@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from '../config';
 import { toast } from "react-toastify";
 import HashLoader from "react-spinners/HashLoader";
 import * as Yup from 'yup';
 
-const ResetPassword = () => {
+const ResetPassword = () =>
+{
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState(null);
   const navigate = useNavigate();
+  const { token } = useParams();
 
   const [formData, setFormData] = useState({
     password: "",
@@ -22,19 +24,22 @@ const ResetPassword = () => {
       .oneOf([Yup.ref("password")], "Passwords must match"),
   });
 
-  const handleInputChange = e => {
+  const handleInputChange = e =>
+  {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async e =>
+  {
     e.preventDefault();
     setLoading(true);
 
-    try {
+    try
+    {
       await schema.validate(formData, { abortEarly: false });
 
-      const res = await fetch(`${BASE_URL}/users/reset-password`, {
-        method: 'post',
+      const res = await fetch(`${BASE_URL}/users/reset-password/${token}`, {
+        method: 'PATCH',
         headers: {
           "Content-Type": "application/json"
         },
@@ -43,22 +48,28 @@ const ResetPassword = () => {
 
       const result = await res.json();
 
-      if (res.ok) {
-        toast.success(result.message);
+      if (res.ok)
+      {
+        toast.success(result.message, { className: "toast-message" });
         setLoading(false);
         navigate("/login");  // Redirect to login page after success
-      } else {
-        toast.error(result.message);
+      } else
+      {
+        toast.error(result.message, { className: "toast-message" });
         setLoading(false);
       }
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
+    } catch (err)
+    {
+      if (err instanceof Yup.ValidationError)
+      {
         const errors = {};
-        err.inner.forEach(e => {
+        err.inner.forEach(e =>
+        {
           errors[e.path] = e.message;
         });
         setFormErrors(errors);
-      } else {
+      } else
+      {
         toast.error(err.message);
       }
       setLoading(false);
@@ -70,7 +81,7 @@ const ResetPassword = () => {
       <div className="login-form">
         <h2 className="heading-secondary ma-bt-lg">Reset your password</h2>
         <form className="form form--reset-password" onSubmit={handleSubmit}>
-          
+
           <div className="form__group ma-bt-md">
             <label className="form__label" htmlFor="password">
               New Password

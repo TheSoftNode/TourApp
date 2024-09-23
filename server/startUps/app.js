@@ -35,11 +35,24 @@ app.use(express.json({ limit: "10kb" }));
 // The cookie parser; for handling sending cookie to the frontend
 app.use(cookieParser());
 
+// app.use((req, res, next) =>
+// {
+//   res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   if (req.method === 'OPTIONS')
+//   {
+//     return res.sendStatus(200);
+//   }
+//   next();
+// });
+
+
 // The cross origin resource sharing
 const corOptions = cors({
   //   origin: process.env.ORIGIN,
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  origin: "http://localhost:5173",
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true,
 });
 app.use(corOptions);
@@ -47,7 +60,8 @@ app.use(corOptions);
 mountedRoutes(app);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.all("*", (req, res, next) => {
+app.all("*", (req, res, next) =>
+{
   const err = new Error(`Can't find ${req.originalUrl} in this server!`);
   err.statusCode = 404;
   next(err);

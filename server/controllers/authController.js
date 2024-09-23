@@ -281,6 +281,8 @@ export const resetPassword = catchAsync(async (req, res, next) =>
     .update(req.params.token)
     .digest("hex");
 
+    console.log(hashedToken)
+
   const user = await User.findOne({
     passwordResetToken: hashedToken,
     passwordResetExpires: { $gt: Date.now() },
@@ -292,7 +294,7 @@ export const resetPassword = catchAsync(async (req, res, next) =>
     return next(new AppError("Token is invalid or has expired", 400));
   }
   user.password = req.body.password;
-  user.passwordConfirm = req.body.passwordConfirm;
+  user.passwordConfirm = req.body.confirmPassword;
   user.passwordResetToken = undefined;
   user.passwordResetExpires = undefined;
   await user.save();
