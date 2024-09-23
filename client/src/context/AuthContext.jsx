@@ -4,7 +4,6 @@ const initialState = {
   user: localStorage.getItem("user") !== null ? JSON.parse(localStorage.getItem("user")) : null,
   token: localStorage.getItem("token"),
   activationToken: localStorage.getItem("activationToken"),
-  activationCode: localStorage.getItem("activationCode")
 };
 
 export const authContext = createContext(initialState);
@@ -15,8 +14,7 @@ const authReducer = (state, action) =>
   {
     case "ACTIVATE_USER":
       return {
-        activationToken: action.payload.activationToken,
-        activationCode: action.payload.activationCode,
+        activationToken: action.payload.token,
         user: null,
         token: null
       }
@@ -24,7 +22,6 @@ const authReducer = (state, action) =>
     case "VERIFY_OTP":
       return {
         activationToken: null,
-        activationCode: null,
       }
 
     case "LOGIN_START":
@@ -36,7 +33,7 @@ const authReducer = (state, action) =>
     case "LOGIN_SUCCESS":
       return {
         user: action.payload.user,
-        token: action.payload.token,
+        token: action.payload.accessToken,
         activationToken: null,
         activationCode: null,
       };
@@ -46,7 +43,6 @@ const authReducer = (state, action) =>
         user: null,
         token: null,
         activationToken: null,
-        activationCode: null,
       };
 
     default:
@@ -63,7 +59,6 @@ export const AuthContextProvider = ({ children }) =>
     localStorage.setItem("user", JSON.stringify(state.user))
     localStorage.setItem("token", state.token);
     localStorage.setItem("activationToken", state.activationToken);
-    localStorage.setItem("activationCode", state.activationCode);
   }, [state])
 
   return (
@@ -72,7 +67,6 @@ export const AuthContextProvider = ({ children }) =>
         user: state.user,
         token: state.token,
         activationToken: state.activationToken,
-        activationCode: state.activationCode,
         dispatch,
       }}
     >
