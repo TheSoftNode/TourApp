@@ -1,12 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Login from '../Pages/Login'
 import SignUp from '../pages/SignUp'
 import ToursList from '../pages/ToursList';
 import TourDetails from '../pages/TourDetails';
 import EmailVerified from '../pages/EmailVerified';
 import EmailVerificationSent from '../pages/EmailVerificationSent';
 import UserSettings from '../pages/UserSettings';
+import ResetPassword from '../pages/ResetPassword';
+import Login from '../pages/Login';
 // import CheckoutSuccess from '../Pages/Doctors/CheckoutSucess'
 // import CheckoutFail from '../Pages/Doctors/CheckoutFail'
 // import ForgotPassword from '@/Pages/ForgotPassword'
@@ -25,9 +26,9 @@ const Routers = () =>
     <Route path="/verify" element={<EmailVerificationSent />} />
     <Route path="/verified" element={<EmailVerified />} />
     <Route path="/me" element={<UserSettings />} />
+    <Route path="/reset-password/:token" element={<ResetPassword/>} />
     {/* <Route path="/contact" element={<Contact/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="/reset-password" element={<ResetPassword/>} />
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
         <Route path="/checkout-fail" element={<CheckoutFail />} /> */}
 

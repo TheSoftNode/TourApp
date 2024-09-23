@@ -27,8 +27,9 @@ export const refreshTokenOptions = {
 };
 
 // Prepare and send token to the user
-export const sendToken = (user, statusCode, res) => {
-  const accessToken = SignInAccessToken(user._id, "3m");
+export const sendToken = (user, statusCode, res) =>
+{
+  const accessToken = SignInAccessToken(user._id, "3d");
   const refreshToken = SignInRefreshToken(user._id, "3d");
 
   // Only set secure to true in production
@@ -49,14 +50,16 @@ export const sendToken = (user, statusCode, res) => {
 };
 
 // Sign Access token
-export const SignInAccessToken = function (id, exp) {
+export const SignInAccessToken = function (id, exp)
+{
   return jwt.sign({ id }, process.env.ACCESS_TOKEN, {
     expiresIn: exp,
   });
 };
 
 // Sign Refresh token
-export const SignInRefreshToken = function (id, exp) {
+export const SignInRefreshToken = function (id, exp)
+{
   return jwt.sign({ id }, process.env.REFRESH_TOKEN, {
     expiresIn: exp,
   });

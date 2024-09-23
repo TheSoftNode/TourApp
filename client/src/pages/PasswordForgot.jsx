@@ -53,13 +53,14 @@ const PasswordForgot = forwardRef((props, ref) =>
             {
                 setLoading(false);
 
-                toast.success("The password reset link has been sent to your email")
+                toast.success("The password reset link has been sent to your email", { className: "toast-message" })
+                props.close();
                 navigate("/login");
             }
             else
             {
                 // throw new Error(result.Error)
-                toast.error(result.message, { className: "toast-message" });
+                toast.error("Something isn't right! Check your network or try again later", { className: "toast-message" });
                 setLoading(false);
                 console.log(result);
             }

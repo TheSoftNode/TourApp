@@ -150,7 +150,7 @@ const Login = () =>
         })
         setLoading(false);
 
-        toast.success("Log in successful")
+        toast.success("Log in successful", { className: "toast-message" })
         navigate("/");
       }
       else
@@ -244,7 +244,7 @@ const Login = () =>
 
       {showOverlay && (<div className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 z-2 flex justify-center items-center `}></div>)}
       {isModalOpen && (< div ref={modalRef} className="p-4 md:p-5 text-center">
-        <PasswordForgot onClick={handleCloseForgotPasswordForm} ref={inputRef} />
+        <PasswordForgot onClick={handleCloseForgotPasswordForm} close={handleCloseForgotPasswordForm} ref={inputRef} />
       </div>
       )
       }
