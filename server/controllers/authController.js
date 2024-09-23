@@ -1,13 +1,13 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import
-  {
-    SignInAccessToken,
-    SignInRefreshToken,
-    accessTokenOptions,
-    refreshTokenOptions,
-    sendToken,
-  } from "../utils/sendToken.js";
+{
+  SignInAccessToken,
+  SignInRefreshToken,
+  accessTokenOptions,
+  refreshTokenOptions,
+  sendToken,
+} from "../utils/sendToken.js";
 import User from "../models/userModel.js";
 import AppError from "../errorHandlers/appError.js";
 import Email from "../emails/email.js";
@@ -16,23 +16,23 @@ import catchAsync from "../utils/catchAsync.js";
 // Create Email verification token
 export const createVerificationToken = (user) =>
 {
-  const verifyToken = crypto.randomBytes(32).toString("hex");
+  const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
 
-  const token = jwt.sign(
-    { user, verifyToken },
+  const verificationToken = jwt.sign(
+    { user, activationCode },
     process.env.VERIFY_EMAIL_SECRET,
     {
       expiresIn: process.env.VERIFY_EMAIL_EXPIRES_IN,
     }
   );
 
-  return { token, verifyToken };
+  return { verificationToken, activationCode };
 };
 
 // Verify Account before saving it.
 export const verifyAccount = catchAsync(async (req, res, next) =>
 {
-  const { name, email, password, passwordConfirm } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
 
   const checkEmail = await User.findOne({ email });
   if (checkEmail) return next(new AppError("Email Already exists", 400));
@@ -41,17 +41,14 @@ export const verifyAccount = catchAsync(async (req, res, next) =>
     name,
     email,
     password,
-    passwordConfirm,
+    confirmPassword,
   };
 
-  const { token, verifyToken } = createVerificationToken(user);
+  const { verificationToken, activationCode } = createVerificationToken(user);
 
   const data = {
     user: { name: user.name },
-    verifyToken,
-    resetURL: `${req.protocol}://${req.get(
-      "host"
-    )}/api/v1/users/signup/${verifyToken}`,
+    activationCode
   };
 
   await new Email(user, data).activateRegistration();
@@ -59,7 +56,8 @@ export const verifyAccount = catchAsync(async (req, res, next) =>
   res.status(201).json({
     success: true,
     message: `Please check your email: ${user.email} to activate your account!`,
-    token,
+    activationCode,
+    verificationToken,
   });
 });
 
@@ -75,26 +73,40 @@ export const signUp = catchAsync(async (req, res, next) =>
   )
   {
     verification_token = req.headers.authorization.split(" ")[1];
+  } else
+  {
+    verification_token = req.body.activation_token;
   }
 
-  const verify_token = req.params.verify_token;
+  const { activation_Code } = req.body;
 
   const newUser = jwt.verify(
     verification_token,
     process.env.VERIFY_EMAIL_SECRET
   );
 
-  if (newUser.verifyToken != verify_token)
+  console.log(newUser)
+
+  if (newUser.activationCode != activation_Code)
     return next(new AppError("Invalid token. Please try again", 401));
 
-  const { name, email, password, passwordConfirm } = newUser.user;
+  const { name, email, password, confirmPassword } = newUser.user;
 
   const user = await User.create({
     name,
     email,
     password,
-    passwordConfirm,
+    passwordConfirm: confirmPassword,
   });
+
+  const data = {
+    user: { name: user.name },
+    welcomeURL: `${req.protocol}://${req.get(
+      "host"
+    )}/api/v1/users/me`,
+  };
+
+  await new Email(user, data).welcome();
 
   sendToken(user, 201, res);
 });
