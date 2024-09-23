@@ -1,5 +1,5 @@
 import React from 'react';
-import logo_white from "../assets/img/logo-white.png"
+import logo_white from "/img/logo-white.png"
 
 const Header = ({ user }) => {
   return (
@@ -8,7 +8,7 @@ const Header = ({ user }) => {
         <a href="/" className="nav__el">All tours</a>
       </nav>
       <div className="header__logo">
-        <img src={logo_white} alt="Natours logo" />
+        <img src="/img/logo-white.png" alt="Natours logo" />
       </div>
       <nav className="nav nav--user">
         {user ? (
@@ -16,7 +16,7 @@ const Header = ({ user }) => {
             <a className="nav__el nav__el--logout">Log out</a>
             <a href="/me" className="nav__el">
               <img
-                src={`../assets/img/users/${user?.photo}`}
+                src={`/img/users/${user?.photo}`}
                 alt={`Photo of ${user?.name}`}
                 className="nav__user-img"
               />
