@@ -192,12 +192,12 @@ export const refreshToken = catchAsync(async (req, res, next) =>
 // update password
 export const updatePassword = catchAsync(async (req, res, next) =>
 {
-  const { oldPassword, newPassword, passwordConfirm } = req.body;
+  const { oldPassword, newPassword, confirmPassword } = req.body;
 
   if (!oldPassword || !newPassword)
     return next(new AppError("Please provide your old and new passwords", 400));
 
-  if (!passwordConfirm)
+  if (!confirmPassword)
     return next(new AppError("Please confirm your password", 400));
 
   // 1) Get user from collection
@@ -215,12 +215,13 @@ export const updatePassword = catchAsync(async (req, res, next) =>
 
   // 3) If so, update password
   user.password = newPassword;
-  user.passwordConfirm = passwordConfirm;
+  user.passwordConfirm = confirmPassword;
   await user.save();
   // User.findByIdAndUpdate will NOT work as intended!
 
   res.status(200).json({
     success: true,
+    message: "Password successfully updated",
     user,
   });
 });
@@ -281,7 +282,7 @@ export const resetPassword = catchAsync(async (req, res, next) =>
     .update(req.params.token)
     .digest("hex");
 
-    console.log(hashedToken)
+  console.log(hashedToken)
 
   const user = await User.findOne({
     passwordResetToken: hashedToken,

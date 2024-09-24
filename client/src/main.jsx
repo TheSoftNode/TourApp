@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')).render(
         <ToastContainer
           theme="light"
           position='top-center'
-          autoClose={3000}
+          autoClose={5000}
           closeOnClick={true}
           pauseOnFocusLoss={false}
           pauseOnHover={false}

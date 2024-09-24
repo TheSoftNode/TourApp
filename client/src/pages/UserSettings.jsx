@@ -1,23 +1,137 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import useGetProfile from "../hooks/useFetchData"
 import { BASE_URL } from '../config';
 import Loading from '../components/Loader/Loading';
 import ErrorPage from './Error';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import HashLoader from "react-spinners/HashLoader"
+import * as Yup from 'yup';
+import { authContext } from '../context/AuthContext';
 
 const UserSettings = () =>
 {
 
-  // const [profileKey, setProfileKey] = useState(Date.now());
+  const { token } = useContext(authContext);
+
+
+  const [passworLoading, setPasswordLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(false);
+  const [passwordFormErrors, setPasswordFormErrors] = useState(null);
+  const [userFormErrors, setUserFormErrors] = useState(null);
+
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState("")
+
+  const [userFormData, setUserFormData] = useState({
+    name: "",
+    email: "",
+    photo: ""
+  })
+
+  const [passwordFormData, setPasswordFormData] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: ""
+  })
+
+  const passwordSchema = Yup.object().shape({
+    oldPassword: Yup.string().required("Please enter your password!").min(6),
+    newPassword: Yup.string().required("Please enter your password!").min(6),
+    confirmPassword: Yup.string()
+      .required("Please confirm Your password")
+      .oneOf([Yup.ref("newPassword")], "Passwords must match"),
+  });
+
+
+  const userSchema = Yup.object().shape({
+    name: Yup.string().required("Please enter your name"),
+    email: Yup.string()
+      .email("Invalid email!")
+      .required("Please enter your email!"),
+  });
+
+  const handlePasswordInputChange = e =>
+  {
+    setPasswordFormData({ ...passwordFormData, [e.target.name]: e.target.value })
+  }
+
+  const handleuserInputChange = e =>
+  {
+    setUserFormData({ ...userFormData, [e.target.name]: e.target.value })
+  }
+
+  const handlePasswordSubmit = async e =>
+  {
+
+    e.preventDefault()
+
+    try
+    {
+      await passwordSchema.validate(passwordFormData, { abortEarly: false });
+
+      setPasswordLoading(true);
+
+      const res = await fetch(`${BASE_URL}/users/update-password`, {
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(passwordFormData)
+      })
+
+      const result = await res.json();
+
+      console.log(result)
+
+      if (res.ok)
+      {
+
+        toast.success(result.message, { className: "toast-message" })
+        setPasswordLoading(false);
+      }
+      else
+      {
+        toast.error(result.message, { className: "toast-message" });
+        setPasswordLoading(false);
+        console.log(result);
+      }
+    }
+    catch (err)
+    {
+      if (err instanceof Yup.ValidationError)
+      {
+        const errors = {};
+        err.inner.forEach(e =>
+        {
+          errors[e.path] = e.message;
+        });
+        setPasswordFormErrors(errors);
+      }
+      else
+      {
+        toast.error(err.message);
+      }
+      setPLoading(false)
+    }
+
+  }
+
+  const handleFileInputChange = async (e) =>
+  {
+    const file = e.target.files[0];
+
+    // const data = await uploadImageToCloudinary(file);
+
+    setPreviewUrl(data.url);
+    setSelectedFile(data.url)
+    setUserFormData({ ...userFormData, photo: data.url })
+  }
 
   const { data: userData, loading, error } = useGetProfile(`${BASE_URL}/users/me`);
   const user = userData?.data?.data;
-
-
-  // const refreshProfile = () =>
-  // {
-  //   setProfileKey(prevKey => prevKey + 1); // Update the key to force a refresh
-  // };
 
 
   const navItem = (link, text, icon, active) => (
@@ -113,42 +227,59 @@ const UserSettings = () =>
 
               <div className="user-view__form-container">
                 <h2 className="heading-secondary ma-bt-md">Password change</h2>
-                <form className="form form-user-password">
+                <form className="form form-user-password" onSubmit={handlePasswordSubmit}>
                   <div className="form__group">
                     <label className="form__label" htmlFor="password-current">Current password</label>
                     <input
-                      id="password-current"
+                      name="oldPassword"
                       className="form__input"
                       type="password"
+                      value={passwordFormData.oldPassword}
+                      onChange={handlePasswordInputChange}
                       placeholder="••••••••"
                       required
                       minLength="8"
                     />
                   </div>
+                  {passwordFormErrors && passwordFormErrors.oldPassword && (
+                    <span className="input_error">{passwordFormErrors.oldPassword}</span>)}
+
                   <div className="form__group">
                     <label className="form__label" htmlFor="password">New password</label>
                     <input
-                      id="password"
+                      name="newPassword"
                       className="form__input"
                       type="password"
                       placeholder="••••••••"
+                      value={passwordFormData.newPassword}
+                      onChange={handlePasswordInputChange}
                       required
                       minLength="8"
                     />
                   </div>
+                  {passwordFormErrors && passwordFormErrors.newPassword && (
+                    <span className="input_error">{passwordFormErrors.newPassword}</span>)}
+
                   <div className="form__group ma-bt-lg">
                     <label className="form__label" htmlFor="password-confirm">Confirm password</label>
                     <input
-                      id="password-confirm"
+                      name="confirmPassword"
                       className="form__input"
                       type="password"
+                      value={passwordFormData.confirmPassword}
+                      onChange={handlePasswordInputChange}
                       placeholder="••••••••"
                       required
                       minLength="8"
                     />
                   </div>
+                  {passwordFormErrors && passwordFormErrors.confirmPassword && (
+                    <span className="input_error">{passwordFormErrors.confirmPassword}</span>
+                  )}
                   <div className="form__group right">
-                    <button className="btn btn--small btn--green btn--save-password" type="submit">Save password</button>
+                    <button className="btn btn--small btn--green btn--save-password" type="submit">
+                      {passworLoading ? <HashLoader size={35} color="#ffffff" /> : "Save Password"}
+                    </button>
                   </div>
                 </form>
               </div>

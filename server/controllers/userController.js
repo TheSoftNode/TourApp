@@ -4,12 +4,12 @@ import User from "./../models/userModel.js";
 import catchAsync from "./../utils/catchAsync.js";
 import AppError from "../errorHandlers/appError.js";
 import
-  {
-    deleteOne,
-    getAll,
-    getOne,
-    updateOne,
-  } from "../services/GenericService.js";
+{
+  deleteOne,
+  getAll,
+  getOne,
+  updateOne,
+} from "../services/GenericService.js";
 import Email from "../emails/email.js";
 
 // const multerStorage = multer.diskStorage({

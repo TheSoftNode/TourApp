@@ -184,7 +184,7 @@ const SignUp = () =>
 
           <div className="form__group">
             <button className="btn btn--green" type="submit">
-            {loading ? <HashLoader size={35} color="#ffffff" /> : "Sign Up"}
+              {loading ? <HashLoader size={35} color="#ffffff" /> : "Sign Up"}
             </button>
           </div>
 

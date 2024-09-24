@@ -39,7 +39,7 @@ const Header = () =>
 
 
   return (
-    <header className="header flex items-center z-[99999] !py-10 !w-[100vw] dark:bg-[#011027] sm:pr-0 pl-6 bg-emerald-50" ref={headerRef}>
+    <header className="header flex items-center z-[110] !py-10 !w-[100vw] dark:bg-[#011027] sm:pr-0 pl-6 bg-emerald-50" ref={headerRef}>
       <nav className="nav nav--tours">
         <a href="/" className="nav__el">All tours</a>
       </nav>
