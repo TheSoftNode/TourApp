@@ -4,7 +4,8 @@ import Tour from "../models/tourModel.js";
 import User from "../models/userModel.js";
 import Booking from "../models/bookingModel.js";
 import catchAsync from "../utils/catchAsync.js";
-import {
+import
+{
   createOne,
   getOne,
   getAll,
@@ -16,7 +17,8 @@ dotenv.config({ path: "./config/config.env" });
 
 const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
-export const getCheckoutSession = catchAsync(async (req, res, next) => {
+export const getCheckoutSession = catchAsync(async (req, res, next) =>
+{
   // 1) Get the currently booked tour
   const tour = await Tour.findById(req.params.tourId);
   // console.log(tour);
@@ -43,10 +45,13 @@ export const getCheckoutSession = catchAsync(async (req, res, next) => {
             name: `${tour.name} Tour`,
             description: tour.summary,
             images: [
-              `${req.protocol}://${req.get("host")}/img/tours/${
-                tour.imageCover
-              }`,
+              `${process.env.CLIENT_URL}/img/tours/${tour.imageCover}`,
             ],
+            // images: [
+            //   `${req.protocol}://${req.get("host")}/img/tours/${
+            //     tour.imageCover
+            //   }`,
+            // ],
           },
         },
       },
@@ -60,24 +65,28 @@ export const getCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
-const createBookingCheckout = async (session) => {
+const createBookingCheckout = async (session) =>
+{
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.display_items[0].amount / 100;
   await Booking.create({ tour, user, price });
 };
 
-export function webhookCheckout(req, res, next) {
+export function webhookCheckout(req, res, next)
+{
   const signature = req.headers["stripe-signature"];
 
   let event;
-  try {
+  try
+  {
     event = stripe.webhooks.constructEvent(
       req.body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET
     );
-  } catch (err) {
+  } catch (err)
+  {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
 
