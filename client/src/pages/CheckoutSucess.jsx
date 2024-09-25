@@ -4,7 +4,7 @@ const CheckoutSuccess = () =>
 {
     return (
         <div className="bg-gray-100 h-[100%]">
-            <div className="bg-white h-[400px] p-6 md:mx-auto">
+            <div className="bg-white h-[400px] p-6 sm:mx-auto">
                 <svg
                     viewBox="0 0 24 24"
                     className="text-green-600 w-16 h-16 mx-auto my-6"
@@ -20,7 +20,7 @@ const CheckoutSuccess = () =>
                     <h3 className="sm:text-6xl text-2xl !my-8 text-gray-900 font-semibold text-center">
                         Payment Done!
                     </h3>
-                    <p className="text-gray-600 sm:text-4xl mb-10">
+                    <p className="text-gray-600 sm:text-4xl text-2xl mb-10">
                         Thank you for completing your secure online payment.
                     </p>
                     <p className="text-3xl">Have a great day!</p>

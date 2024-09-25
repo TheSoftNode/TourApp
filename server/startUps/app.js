@@ -51,7 +51,7 @@ app.use(cookieParser());
 // The cross origin resource sharing
 const corOptions = cors({
   //   origin: process.env.ORIGIN,
-  origin: "http://localhost:5173",
+  origin: process.env.CLIENT_URL,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true,
 });

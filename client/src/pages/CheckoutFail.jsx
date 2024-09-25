@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 const CheckoutFail = () =>
 {
     return (
-        <div className="bg-gray-100 h-screen">
-            <div className="bg-white p-6 md:mx-auto">
+        <div className="bg-gray-100  h-[100%]">
+            <div className="bg-white h-[400px] p-6 sm:mx-auto">
                 <svg
                     viewBox="0 0 24 24"
                     className="text-green-600 w-16 h-16 mx-auto my-6"
@@ -17,13 +17,13 @@ const CheckoutFail = () =>
                 </svg>
 
                 <div className="text-center">
-                    <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">
+                    <h3 className="sm:text-6xl text-2xl !my-8 text-gray-900 font-semibold text-center">
                         Payment Failed
                     </h3>
-                    <p className="text-gray-600 my-2">
+                    <p className="text-gray-600 my-2 sm:text-4xl text-2xl">
                         Please confirm that everything is correct and Try again!
                     </p>
-                    <p>Have a great day!</p>
+                    <p className="text-3xl">Have a great day!</p>
                     <div className="py-10 text-center">
                         <Link
                             to="/Home"

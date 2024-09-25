@@ -12,9 +12,9 @@ process.on("uncaughtException", (err) => {
 dotenv.config({ path: "./config/config.env" });
 
 // Bring in the connection string
-const DB_CLOUD = process.env.DB_CLOUD_MINE.replace(
+const DB_CLOUD = process.env.DB_CLOUD.replace(
   "<password>",
-  process.env.PASSWORD_MINE
+  process.env.PASSWORD
 );
 
 // Create a port
