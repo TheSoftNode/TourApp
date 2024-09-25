@@ -57,7 +57,7 @@ const UserSettings = () =>
     setPasswordFormData({ ...passwordFormData, [e.target.name]: e.target.value })
   }
 
-  const handleuserInputChange = e =>
+  const handleUserInputChange = e =>
   {
     setUserFormData({ ...userFormData, [e.target.name]: e.target.value })
   }
@@ -180,10 +180,10 @@ const UserSettings = () =>
                 <h2 className="heading-secondary ma-bt-md">Your account settings</h2>
 
                 {/* Uncomment this block for API integration */}
-                {/* <form className="form form-user-data" action="/submit-user-data" method="POST" encType="multipart/form-data"> */}
+                <form className="form form-user-data" action="/submit-user-data" method="POST" encType="multipart/form-data">
 
                 {/* With API */}
-                <form className="form form-user-data">
+                {/* <form className="form form-user-data"> */}
                   <div className="form__group">
                     <label className="form__label" htmlFor="name">Name</label>
                     <input
@@ -191,10 +191,14 @@ const UserSettings = () =>
                       className="form__input"
                       type="text"
                       defaultValue={user?.name}
+                      value={userFormData.name}
+                      onChange={handleUserInputChange}
                       required
                       name="name"
                     />
                   </div>
+                  {userFormErrors && userFormErrors.email && (
+                    <span className="input_error">{userFormErrors.email}</span>)}
                   <div className="form__group ma-bt-md">
                     <label className="form__label" htmlFor="email">Email address</label>
                     <input
@@ -202,10 +206,15 @@ const UserSettings = () =>
                       className="form__input"
                       type="email"
                       defaultValue={user?.email}
+                      value={userFormData.email}
+                      onChange={handleUserInputChange}
                       required
                       name="email"
                     />
                   </div>
+                  {userFormErrors && userFormErrors.email && (
+                    <span className="input_error">{userFormErrors.email}</span>)}
+
                   <div className="form__group form__photo-upload">
                     <img className="form__user-photo" src={`/img/users/${user?.photo}`} alt="User photo" />
                     <input

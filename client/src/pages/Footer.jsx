@@ -13,7 +13,7 @@ const Footer = () => {
         <li><a href="#">Contact</a></li>
       </ul>
       <p className="footer__copyright">
-        &copy; by Jonas Schmedtmann. Feel free to use this project for your own purposes, EXCEPT producing your own course or tutorials!
+        &copy; 2024 by kenny Arowolo. 
       </p>
     </footer>
   );

@@ -150,7 +150,8 @@ const TourDetails = () =>
           </section>
 
           <section className="section-map">
-            <div id="map" data-locations={JSON.stringify(tour?.locations)}></div>
+            <img id="map" src="/img/map.png" alt="" />
+            {/* <div id="map" data-locations={JSON.stringify(tour?.locations)}></div> */}
           </section>
 
           <section className="section-reviews">
