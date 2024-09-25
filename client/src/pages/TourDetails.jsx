@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import ReviewCard from './ReviewCard'; // Import the ReviewCard component
 import { BASE_URL } from '../config';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useGetTour from '../hooks/useFetchData';
 import { authContext } from '../context/AuthContext';
 import ErrorPage from './Error';
@@ -9,13 +9,11 @@ import Loading from '../components/Loader/Loading';
 
 const TourDetails = () =>
 {
-
-  // const [profileKey, setProfileKey] = useState(Date.now());
-
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const navigate = useNavigate();
   const { id } = useParams();
-  const { user } = useContext(authContext);
+  const { user, token } = useContext(authContext);
 
-  console.log(user)
 
   const {
     data: tourData,
@@ -25,12 +23,44 @@ const TourDetails = () =>
 
   const tour = tourData?.data?.data;
 
-  console.log(tourData)
 
-  // const refreshProfile = () =>
-  // {
-  //   setProfileKey(prevKey => prevKey + 1); // Update the key to force a refresh
-  // };
+
+  const bookingHandler = async () =>
+  {
+    try
+    {
+      setCheckoutLoading(true);
+      const res = await fetch(`${BASE_URL}/bookings/checkout-session/${tour.id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+
+      if (!res.ok)
+      {
+        setCheckoutLoading(false);
+        navigate("/checkout-fail");
+        throw new Error(data.message + "Please try again");
+      }
+
+      if (data.session.url)
+      {
+        window.location.href = data.session.url
+      }
+
+      setCheckoutLoading(false);
+      navigate("/checkout-success");
+    }
+    catch (error)
+    {
+      // throw new Error(error)
+      navigate("/checkout-fail")
+      toast.error(error.message)
+    }
+  }
 
 
   const date = new Date(tour?.startDates[0]).toLocaleString('en-us', {
@@ -187,9 +217,10 @@ const TourDetails = () =>
                   <button
                     className="btn btn--green span-all-rows"
                     id="book-tour"
+                    onClick={bookingHandler}
                     data-tour-id={tour?.id}
                   >
-                    Book tour now!
+                    {loading ? <HashLoader size={25} color="#ffffff" /> : "Book tour now!"}
                   </button>
                 ) : (
                   <a className="btn btn--green span-all-rows" href="/login">
