@@ -1,11 +1,17 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { authContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import useGetProfile from "../hooks/useFetchData"
+import { BASE_URL } from '../config';
 
 const Header = () =>
 {
   const headerRef = useRef(null)
-  const { user, token, dispatch } = useContext(authContext);
+  const { token, dispatch } = useContext(authContext);
+  const { data: userData } = useGetProfile(`${BASE_URL}/users/me`);
+  const user = userData?.data?.data;
+
+  console.log(user)
   const navigate = useNavigate()
 
 
@@ -52,7 +58,7 @@ const Header = () =>
             <a onClick={handleLogout} className=" nav__el !mt-4 sm:!mt-0">Log out</a>
             <a href="/me" className="nav__el">
               <img
-                src={`/img/users/${user?.photo}`}
+                src={user?.photo}
                 alt={`Photo of ${user?.name}`}
                 className="nav__user-img"
               />
