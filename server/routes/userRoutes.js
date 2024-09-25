@@ -49,7 +49,8 @@ router.use(isAuthenticated);
 router.route("/logout").post(logout);
 router.route("/update-password").patch(updatePassword);
 router.get("/me", getMe, getUser);
-router.patch("/update-me", uploadUserPhoto, resizeUserPhoto, updateMe);
+// router.patch("/update-me", uploadUserPhoto, resizeUserPhoto, updateMe);
+router.patch("/update-me", updateMe);
 router.delete("/delete-me", deleteMe);
 
 // Restrict the endpoints below to admin access only

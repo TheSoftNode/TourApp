@@ -12,16 +12,19 @@ import
 } from "../services/GenericService.js";
 import Email from "../emails/email.js";
 
-// const multerStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'public/img/users');
-//   },
-//   filename: (req, file, cb) => {
-//     const ext = file.mimetype.split('/')[1];
-//     cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
-//   }
-// });
-const multerStorage = multer.memoryStorage();
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) =>
+  {
+    cb(null, 'public/img/users');
+  },
+  filename: (req, file, cb) =>
+  {
+    const ext = file.mimetype.split('/')[1];
+    cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
+  }
+});
+
+// const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) =>
 {
@@ -85,9 +88,17 @@ export const updateMe = catchAsync(async (req, res, next) =>
     );
   }
 
-  // 2) Filtered out unwanted fields names that are not allowed to be updated
-  const filteredBody = filterObj(req.body, "name", "email");
-  if (req.file) filteredBody.photo = req.file.filename;
+  // // 2) Filtered out unwanted fields names that are not allowed to be updated
+  // const filteredBody = filterObj(req.body, "name", "email");
+  // if (req.file) filteredBody.photo = req.file.filename;
+
+   // 2) Filtered out unwanted fields names that are not allowed to be updated
+   const filteredBody = filterObj(
+    req.body,
+    "name",
+    "email",
+    "photo"
+  );
 
   // 3) Update user document
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
@@ -97,6 +108,7 @@ export const updateMe = catchAsync(async (req, res, next) =>
 
   res.status(200).json({
     status: "success",
+    message: "Profile updated successfully",
     data: {
       user: updatedUser,
     },
