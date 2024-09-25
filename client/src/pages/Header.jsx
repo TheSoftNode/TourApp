@@ -57,11 +57,14 @@ const Header = () =>
           <div className='flex justify-between gap-x-5'>
             <a onClick={handleLogout} className=" nav__el !mt-4 sm:!mt-0">Log out</a>
             <a href="/me" className="nav__el">
-              <img
-                src={profileUser?.photo ? profileUser?.photo : user?.photo}
-                alt={`Photo of ${profileUser?.name ? profileUser?.name : user?.name}`}
-                className="nav__user-img"
-              />
+              {profileUser?.photo && (
+                <img
+                  src={profileUser?.photo ? profileUser?.photo : " "}
+                  // alt={`Photo of ${profileUser?.name ? profileUser?.name : user?.name}`}
+                  className="nav__user-img"
+                />
+              )}
+
               <span className='hidden sm:flex'>
                 {user?.name.split(' ')[0] ? user?.name.split(' ')[0] : profileUser?.name.split(' ')[0]}
               </span>

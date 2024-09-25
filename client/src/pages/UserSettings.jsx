@@ -165,12 +165,12 @@ const UserSettings = () =>
       if (res.ok)
       {
         setUserLoading(false);
-        toast.success("Your profile has been updated successfully",  { className: "toast-message" })
+        toast.success("Your profile has been updated successfully", { className: "toast-message" })
         navigate("/me");
       }
       else
       {
-        toast.error(result.message,  { className: "toast-message" });
+        toast.error(result.message, { className: "toast-message" });
         setUserLoading(false);
       }
     }
@@ -262,11 +262,9 @@ const UserSettings = () =>
                   </div>
 
                   <div className="form__group form__photo-upload">
-                    {formData.photo ? (<figure >
-                      <img className="form__user-photo" src={formData.photo} alt="User photo" />
-                    </figure>) : (
-                      <img className="form__user-photo" src="/img/users/default.jpg" alt="User photo" />
-                    )}
+                    {formData.photo && (<figure >
+                      <img className="form__user-photo" src={formData.photo} />
+                    </figure>)}
 
                     <input
                       className="form__upload"
