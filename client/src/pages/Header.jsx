@@ -7,9 +7,9 @@ import { BASE_URL } from '../config';
 const Header = () =>
 {
   const headerRef = useRef(null)
-  const { token, dispatch } = useContext(authContext);
+  const { user, token, dispatch } = useContext(authContext);
   const { data: userData } = useGetProfile(`${BASE_URL}/users/me`);
-  const user = userData?.data?.data;
+  const profileUser = userData?.data?.data;
 
   console.log(user)
   const navigate = useNavigate()
@@ -58,11 +58,13 @@ const Header = () =>
             <a onClick={handleLogout} className=" nav__el !mt-4 sm:!mt-0">Log out</a>
             <a href="/me" className="nav__el">
               <img
-                src={user?.photo}
-                alt={`Photo of ${user?.name}`}
+                src={profileUser?.photo ? profileUser?.photo : user?.photo}
+                alt={`Photo of ${profileUser?.name ? profileUser?.name : user?.name}`}
                 className="nav__user-img"
               />
-              <span className='hidden sm:flex'>{user?.name.split(' ')[0]}</span>
+              <span className='hidden sm:flex'>
+                {user?.name.split(' ')[0] ? user?.name.split(' ')[0] : profileUser?.name.split(' ')[0]}
+              </span>
             </a>
           </div>
         ) : (

@@ -52,7 +52,7 @@ const TourDetails = () =>
       }
 
       setCheckoutLoading(false);
-      navigate("/checkout-success");
+      // navigate("/checkout-success");
     }
     catch (error)
     {

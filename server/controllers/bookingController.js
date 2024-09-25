@@ -29,8 +29,10 @@ export const getCheckoutSession = catchAsync(async (req, res, next) =>
     // success_url: `${req.protocol}://${req.get('host')}/my-tours/?tour=${
     //   req.params.tourId
     // }&user=${req.user.id}&price=${tour.price}`,
-    success_url: `${req.protocol}://${req.get("host")}/`,
-    cancel_url: `${req.protocol}://${req.get("host")}/tour/${tour.slug}`,
+    success_url: `${process.env.CLIENT_URL}/checkout-success`,
+    // success_url: `${req.protocol}://${req.get("host")}/`,
+    cancel_url: `${process.env.CLIENT_URL}/tours/${tour.id}`,
+    // cancel_url: `${req.protocol}://${req.get("host")}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
     mode: "payment",
@@ -48,8 +50,7 @@ export const getCheckoutSession = catchAsync(async (req, res, next) =>
               `${process.env.CLIENT_URL}/img/tours/${tour.imageCover}`,
             ],
             // images: [
-            //   `${req.protocol}://${req.get("host")}/img/tours/${
-            //     tour.imageCover
+            //   `${req.protocol}://${req.get("host")}/img/tours/${tour.imageCover
             //   }`,
             // ],
           },
