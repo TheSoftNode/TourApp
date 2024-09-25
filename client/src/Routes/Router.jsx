@@ -8,10 +8,8 @@ import EmailVerificationSent from '../pages/EmailVerificationSent';
 import UserSettings from '../pages/UserSettings';
 import ResetPassword from '../pages/ResetPassword';
 import Login from '../pages/Login';
-// import CheckoutSuccess from '../Pages/Doctors/CheckoutSucess'
-// import CheckoutFail from '../Pages/Doctors/CheckoutFail'
-// import ForgotPassword from '@/Pages/ForgotPassword'
-// import ResetPassword from '@/Pages/ResetPassword'
+import CheckoutSuccess from '../pages/CheckoutSucess';
+import CheckoutFail from '../pages/CheckoutFail';
 
 
 const Routers = () =>
@@ -27,10 +25,8 @@ const Routers = () =>
     <Route path="/verified" element={<EmailVerified />} />
     <Route path="/me" element={<UserSettings />} />
     <Route path="/reset-password/:token" element={<ResetPassword />} />
-    {/* <Route path="/contact" element={<Contact/>} />
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="/checkout-success" element={<CheckoutSuccess />} />
-        <Route path="/checkout-fail" element={<CheckoutFail />} /> */}
+    <Route path="/checkout-success" element={<CheckoutSuccess />} />
+    <Route path="/checkout-fail" element={<CheckoutFail />} />
 
 
   </Routes>
