@@ -2,14 +2,17 @@ import nodemailer from "nodemailer";
 import ejs from "ejs";
 import path from "path";
 
-export default class Email {
-  constructor(user, data) {
+export default class Email
+{
+  constructor(user, data)
+  {
     this.to = user.email;
     this.data = data;
-    this.from = `Theophilus <${process.env.SMTP_MAIL}>`;
+    this.from = `Arowolo Kehinde <${process.env.SMTP_MAIL}>`;
   }
 
-  newTransport() {
+  newTransport()
+  {
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || "587"),
@@ -22,7 +25,8 @@ export default class Email {
   }
 
   // Send Actual Email
-  async send(template, subject) {
+  async send(template, subject)
+  {
     const __dirname = path.resolve();
     //get the path to the email template file
     const emailTemplatePath = path.join(
@@ -53,22 +57,26 @@ export default class Email {
     // });
   }
 
-  async activateRegistration() {
+  async activateRegistration()
+  {
     await this.send("activation-mail.ejs", "Activate Your Account");
   }
 
-  async welcome() {
+  async welcome()
+  {
     await this.send("welcome.ejs", "We're happy to have you!");
   }
 
-  async sendPasswordReset() {
+  async sendPasswordReset()
+  {
     await this.send(
       "forgot-password.ejs",
       "Your password reset token (valid for only 10 minutes)"
     );
   }
 
-  async accountReactivated() {
+  async accountReactivated()
+  {
     await this.send("re-activation.ejs", "Account Reactivated!");
   }
 }

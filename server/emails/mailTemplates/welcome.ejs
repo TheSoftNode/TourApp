@@ -50,10 +50,26 @@
         }
 
         .footer {
-            margin-top: 20px;
+            background-color: #f1f1f1;
             text-align: center;
-            font-size: 12px;
-            color: #999;
+            padding: 20px;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #1e9e57;
+            text-decoration: underline;
+        }
+
+        .name {
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            color: #1e9e57;
         }
     </style>
 </head>
@@ -61,20 +77,20 @@
 <body>
     <div class="email-wrapper">
         <h1>Welcome to Natours!</h1>
-        <p>Hi <%= user.name %>,</p>
+        <p>Hi <span class="name">
+                <%= user.name %>,
+            </span></p>
         <p>We're glad to have you 🎉🙏</p>
         <p>We're all a big family here, so make sure to upload your user photo so we get to know you a bit better!</p>
-
-        <div class="btn">
-            <a href="<%= welcomeURL %>" target="_blank">Upload User Photo</a>
-        </div>
 
         <p style="margin-top: 7px; margin-bottom: 4px;">If you need any help with booking your next tour, please don't
             hesitate to contact me!</p>
         <p>- Kenny, CEO</p>
 
         <div class="footer">
-            <p>If you have any questions, feel free to reach out!</p>
+            <p>If you have any questions, feel free to contact us at
+                <a href="mailto:arowolokehinde321@gmail.com">support@natours.com</a>
+            </p>
         </div>
     </div>
 </body>
