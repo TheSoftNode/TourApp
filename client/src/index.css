@@ -383,7 +383,7 @@ body {
 
 .section-header {
   position: relative;
-  height: 38vw;
+  height: 500px;
   clip-path: polygon(0 0,
       100% 0,
       100% calc(100% - var(--section-rotate)),
@@ -475,9 +475,9 @@ body {
 .section-description {
   background-color: #fcfcfc;
   margin-top: calc(0px - var(--section-rotate));
-  display: -webkit-box;
+  /* display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flex; */
 }
 
 .section-description>* {
@@ -558,9 +558,9 @@ body {
 }
 
 .section-pictures {
-  display: -webkit-box;
+  /* display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flex; */
   clip-path: polygon(0 var(--section-rotate),
       100% 0,
       100% calc(100% - var(--section-rotate)),
@@ -586,17 +586,26 @@ body {
   padding-top: 15%;
 }
 
-.picture-box__img--2 {
-  padding-bottom: 15%;
+
+@media (min-width: 640px) {
+  .picture-box__img--2 {
+    padding-bottom: 15%;
+  }
+
+  .picture-box__img--3 {
+    padding-bottom: 27%;
+  }
+
+  .section-map {
+    margin-top: calc(0px - var(--section-rotate));
+  }
 }
 
-.picture-box__img--3 {
-  padding-bottom: 27%;
-}
+
 
 .section-map {
   position: relative;
-  height: 65rem;
+  /* height: 75rem; */
   margin-top: calc(0px - var(--section-rotate));
 }
 
@@ -649,18 +658,28 @@ body {
       0 100%);
 }
 
-.reviews {
-  padding: 5rem 0;
-  display: grid;
-  grid-column-gap: 6rem;
-  grid-auto-flow: column;
-  overflow-x: scroll;
-  -ms-scroll-snap-type: x mandatory;
-  scroll-snap-type: x mandatory;
+@media (min-width: 768px) {
+  .reviews {
+    padding: 5rem 0;
+    display: grid;
+    grid-column-gap: 6rem;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    -ms-scroll-snap-type: x mandatory;
+    scroll-snap-type: x mandatory;
+  }
+
 }
 
+.reviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .reviews__card {
-  width: 30rem;
   padding: 4rem;
   background-color: #f7f7f7;
   border-radius: 3px;
@@ -804,16 +823,20 @@ body {
   z-index: 8;
 }
 
-.cta__content {
-  display: grid;
-  grid-template-rows: auto auto;
-  grid-template-columns: 1fr auto;
-  grid-gap: 0.7rem;
-  grid-auto-flow: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+@media (min-width: 768px) {
+  .cta__content {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr auto;
+    grid-gap: 0.7rem;
+    grid-auto-flow: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
 }
+
+
 
 .cta__text {
   font-size: 1.9rem;

@@ -3,7 +3,7 @@ import React from 'react';
 const ReviewCard = ({ review }) =>
 {
   return (
-    <div className="reviews__card">
+    <div className="reviews__card w-[70%] md:w-[30rem]">
       <div className="reviews__avatar">
         <img
           className="reviews__avatar-img"

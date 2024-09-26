@@ -109,9 +109,10 @@ const TourDetails = () =>
             </div>
           </section>
 
-          <section className="section-description">
+          <section className="section-description flex flex-wrap sm:flex-row flex-col">
             <div className="overview-box">
-              <div>
+              <div
+                className="">
                 <div className="overview-box__group">
                   <h2 className="heading-secondary ma-bt-lg">Quick facts</h2>
 
@@ -167,7 +168,7 @@ const TourDetails = () =>
             </div>
           </section>
 
-          <section className="section-pictures">
+          <section className="section-pictures flex sm:flex-row flex-col">
             {tour?.images.map((img, i) => (
               <div className="picture-box" key={i}>
                 <img
@@ -179,13 +180,13 @@ const TourDetails = () =>
             ))}
           </section>
 
-          <section className="section-map">
-            <img id="map" src="/img/map.png" alt="" />
+          <section className="section-map relative md:h-[65rem] h-[40rem]">
+            <img id="map" className='md:h-[65rem]' src="/img/map.png" alt="" />
             {/* <div id="map" data-locations={JSON.stringify(tour?.locations)}></div> */}
           </section>
 
           <section className="section-reviews">
-            <div className="reviews">
+            <div className="reviews mx-auto md:grid gap-6">
               {tour?.reviews.map((review, index) => (
                 <ReviewCard review={review} key={index} />
               ))}
@@ -194,19 +195,21 @@ const TourDetails = () =>
 
           <section className="section-cta">
             <div className="cta">
-              <div className="cta__img cta__img--logo">
-                <img src="/img/logo-white.png" alt="Natours logo" />
+              <div className=''>
+                <div className="cta__img cta__img--logo">
+                  <img src="/img/logo-white.png" alt="Natours logo" />
+                </div>
+                <img
+                  className="cta__img cta__img--1"
+                  src={`/img/tours/${tour?.images[1]}`}
+                  alt="Tour picture"
+                />
+                <img
+                  className="cta__img cta__img--2"
+                  src={`/img/tours/${tour?.images[2]}`}
+                  alt="Tour picture"
+                />
               </div>
-              <img
-                className="cta__img cta__img--1"
-                src={`/img/tours/${tour?.images[1]}`}
-                alt="Tour picture"
-              />
-              <img
-                className="cta__img cta__img--2"
-                src={`/img/tours/${tour?.images[2]}`}
-                alt="Tour picture"
-              />
               <div className="cta__content">
                 <h2 className="heading-secondary">What are you waiting for?</h2>
                 <p className="cta__text">
