@@ -87,9 +87,8 @@
 
     .name {
       font-weight: bold;
-      font-size: 24px;
-      line-height: 28px;
-      color: #1e9e57;
+      font-size: 16px;
+      line-height: 20px;
     }
   </style>
 </head>
@@ -100,9 +99,9 @@
       <h1>Welcome to Natours!</h1>
     </div>
     <div class="body">
-      <p>Hello <span class="name">
-          <%= user.name %>,
-        </span></p>
+      <p class="name">
+        Hello <%= user.name %>,
+      </p>
       <p>Thank you for registering with Natours! To activate your account, please use the following activation code:</p>
       <h1>
         <%=activationCode %>

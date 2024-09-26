@@ -67,9 +67,8 @@
 
         .name {
             font-weight: bold;
-            font-size: 24px;
-            line-height: 28px;
-            color: #1e9e57;
+            font-size: 16px;
+            line-height: 20px;
         }
     </style>
 </head>
@@ -77,9 +76,9 @@
 <body>
     <div class="email-wrapper">
         <h1>Welcome to Natours!</h1>
-        <p>Hi <span class="name">
-                <%= user.name %>,
-            </span></p>
+        <p class="name">
+            Hello <%= user.name %>,
+        </p>
         <p>We're glad to have you 🎉🙏</p>
         <p>We're all a big family here, so make sure to upload your user photo so we get to know you a bit better!</p>
 
