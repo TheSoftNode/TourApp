@@ -6,29 +6,30 @@ import morgan from "morgan";
 import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";
 import { mountedRoutes } from "./routes.js";
-import YAML from "yamljs";
 import { readFileSync } from "fs";
 import globalErrorHandler from "../errorHandlers/errorHandler.js";
 
 const app = express();
 const __dirname = path.resolve();
 
-// Load the swagger.yaml file
-// const swaggerDocument = YAML.load(path.join(__dirname, './swagger/swagger.yaml'));
-// Read the swagger.json file
-const swaggerDocument2 = JSON.parse(
+
+// Read Swagger JSON files
+const swaggerDocument = JSON.parse(
   readFileSync(path.join(__dirname, './swagger/users/swagger.json'), 'utf8')
 );
 
-// Swagger route
-app.use('/STour/users', swaggerUi.serve, swaggerUi.setup(swaggerDocument2));
+// Swagger route for users
+app.use('/STour', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 // SET Security HTTP headers
 app.use(helmet());
 
 // Development logging
-app.use(morgan("dev"));
+if (process.env.NODE_ENV === 'development')
+{
+  app.use(morgan("dev"));
+}
 
 
 // The body parser, reading data from the body into req.body

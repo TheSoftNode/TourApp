@@ -22,5 +22,6 @@ router.use(restrictTo("admin"));
 
 router.route("/").get(getAllNotifications);
 router.route("/:id").get(getNotification);
+router.route("/:id").delete(getNotification);
 
 export default router;
