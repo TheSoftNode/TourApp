@@ -35,7 +35,8 @@ const reviewSchema = new mongoose.Schema(
 
 reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
-reviewSchema.pre(/^find/, function (next) {
+reviewSchema.pre(/^find/, function (next)
+{
   // this.populate({
   //   path: 'tour',
   //   select: 'name'
@@ -51,7 +52,8 @@ reviewSchema.pre(/^find/, function (next) {
   next();
 });
 
-reviewSchema.statics.calcAverageRatings = async function (tourId) {
+reviewSchema.statics.calcAverageRatings = async function (tourId)
+{
   const stats = await this.aggregate([
     {
       $match: { tour: tourId },
@@ -66,12 +68,14 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
   ]);
   // console.log(stats);
 
-  if (stats.length > 0) {
+  if (stats.length > 0)
+  {
     await Tour.findByIdAndUpdate(tourId, {
       ratingsQuantity: stats[0].nRating,
       ratingsAverage: stats[0].avgRating,
     });
-  } else {
+  } else
+  {
     await Tour.findByIdAndUpdate(tourId, {
       ratingsQuantity: 0,
       ratingsAverage: 4.5,
@@ -79,28 +83,35 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
   }
 };
 
-reviewSchema.post("save", function () {
+reviewSchema.post("save", function ()
+{
   // this points to current review
   this.constructor.calcAverageRatings(this.tour);
 });
 
-reviewSchema.pre(/^findOneAnd/, async function (next) {
+reviewSchema.pre(/^findOneAnd/, async function (next)
+{
   // Store the original query in the document
   this._originalQuery = { ...this.getFilter() };
   next();
 });
 
-reviewSchema.post(/^findOneAnd/, async function (doc, next) {
-  if (this._originalQuery) {
-    try {
+reviewSchema.post(/^findOneAnd/, async function (doc, next)
+{
+  if (this._originalQuery)
+  {
+    try
+    {
       // Find the document using the stored query
       const updatedDoc = await this.model.findOne(this._originalQuery);
 
       // Perform calculations or other actions with the updatedDoc
-      if (updatedDoc) {
+      if (updatedDoc)
+      {
         await updatedDoc.constructor.calcAverageRatings(updatedDoc.tour);
       }
-    } catch (err) {
+    } catch (err)
+    {
       console.error(err);
     }
   }
