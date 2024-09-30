@@ -15,6 +15,9 @@
         "/api/v1/users/verify-email": {
             "post": {
                 "summary": "Verify account before saving it",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Verifies a user’s account by checking the provided email and generating a verification token. Sends an email to the user for account verification.",
                 "requestBody": {
                     "content": {
@@ -105,6 +108,9 @@
         "/api/v1/users/signup/{verify_token}": {
             "post": {
                 "summary": "Sign up a new user",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Sign up a new user by verifying the token and persisting the user data in the database.",
                 "parameters": [
                     {
@@ -205,6 +211,9 @@
         "/api/v1/users/login": {
             "post": {
                 "summary": "Log in a user",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Logs in an existing user by checking their email and password, and sends a JWT token if authentication is successful.",
                 "requestBody": {
                     "content": {
@@ -319,6 +328,9 @@
         "/api/v1/users/logout": {
             "post": {
                 "summary": "Logout a user",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Logs out the user by clearing the access and refresh tokens.",
                 "responses": {
                     "200": {
@@ -367,6 +379,9 @@
         "/api/v1/users/refresh-token": {
             "post": {
                 "summary": "Refresh access token",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Generates a new access token using the refresh token from cookies.",
                 "responses": {
                     "200": {
@@ -441,6 +456,9 @@
         "/api/v1/users/update-password": {
             "post": {
                 "summary": "Update user password",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Allows the user to update their password by providing the old password, new password, and a password confirmation.",
                 "requestBody": {
                     "content": {
@@ -554,6 +572,9 @@
         "/api/v1/users/forgot-password": {
             "post": {
                 "summary": "Forgot password",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Generates a password reset token and sends it to the user's email address.",
                 "requestBody": {
                     "content": {
@@ -641,6 +662,9 @@
         "/api/v1/users/reset-password/{token}": {
             "post": {
                 "summary": "Reset user password",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Resets the user's password using a valid reset token.",
                 "parameters": [
                     {
@@ -725,6 +749,9 @@
         "/api/v1/users/is-logged-in": {
             "get": {
                 "summary": "Check if user is logged in",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Checks if the user is logged in by verifying the JWT token from cookies. Sets the current user in response locals if authenticated.",
                 "responses": {
                     "200": {
@@ -789,6 +816,9 @@
         "/api/v1/users/me": {
             "get": {
                 "summary": "Get current user",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Fetches the details of the currently logged-in user.",
                 "responses": {
                     "200": {
@@ -838,6 +868,9 @@
         "/api/v1/users/update-me": {
             "patch": {
                 "summary": "Update current user information",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Updates the user's name and email, but not the password.",
                 "requestBody": {
                     "content": {
@@ -923,6 +956,9 @@
         "/api/v1/users/delete-me": {
             "delete": {
                 "summary": "Delete current user account",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Deactivates the current user account.",
                 "responses": {
                     "204": {
@@ -937,6 +973,9 @@
         "/api/v1/users/update-role/{id}": {
             "patch": {
                 "summary": "Update user role",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Updates the role of a specified user by ID.",
                 "parameters": [
                     {
@@ -1006,6 +1045,9 @@
         "/api/v1/users/reactivate-account": {
             "post": {
                 "summary": "Reactivate a user account",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Reactivates a previously deactivated user account using the email address.",
                 "requestBody": {
                     "content": {
@@ -1075,6 +1117,9 @@
         "/api/v1/users/create": {
             "post": {
                 "summary": "Create a new user",
+                "tags": [
+                    "Users"
+                ],
                 "description": "This route is not defined. Please use /signup instead.",
                 "responses": {
                     "500": {
@@ -1103,6 +1148,9 @@
         "/api/v1/users/{id}": {
             "get": {
                 "summary": "Get user by ID",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Fetches user details by user ID.",
                 "parameters": [
                     {
@@ -1163,6 +1211,9 @@
         "/api/v1/users": {
             "get": {
                 "summary": "Get all users",
+                "tags": [
+                    "Users"
+                ],
                 "description": "Fetches a list of all users.",
                 "responses": {
                     "200": {
@@ -1207,6 +1258,9 @@
         "/api/v1/tours": {
             "get": {
                 "summary": "Get all tours",
+                "tags": [
+                    "Tours"
+                ],
                 "description": "Retrieves all tours with optional query parameters like pagination, sorting, and filtering.",
                 "responses": {
                     "200": {
@@ -1507,6 +1561,9 @@
         "/api/v1/tours/{id}": {
             "get": {
                 "summary": "Get a tour by ID",
+                "tags": [
+                    "Tours"
+                ],
                 "description": "Fetches details of a single tour by its ID.",
                 "parameters": [
                     {
@@ -1825,6 +1882,9 @@
         "/api/v1/top-5-cheap": {
             "get": {
                 "summary": "Get top 5 cheap tours",
+                "tags": [
+                    "Tours"
+                ],
                 "responses": {
                     "200": {
                         "description": "A list of top 5 cheap tours",
@@ -1865,6 +1925,9 @@
         "/api/v1/tour-stats": {
             "get": {
                 "summary": "Get tour statistics",
+                "tags": [
+                    "Tours"
+                ],
                 "responses": {
                     "200": {
                         "description": "Tour statistics",
@@ -1911,6 +1974,9 @@
         "/api/v1/monthly-plan/{year}": {
             "get": {
                 "summary": "Get monthly plan for a year",
+                "tags": [
+                    "Tours"
+                ],
                 "parameters": [
                     {
                         "name": "year",
@@ -1991,6 +2057,9 @@
         "/api/v1/tours-within/{distance}/center/{latlng}/unit/{unit}": {
             "get": {
                 "summary": "Get tours within a certain distance",
+                "tags": [
+                    "Tours"
+                ],
                 "parameters": [
                     {
                         "name": "distance",
@@ -2080,6 +2149,9 @@
         "/api/v1/distances/{latlng}/unit/{unit}": {
             "get": {
                 "summary": "Get distances to all tours",
+                "tags": [
+                    "Tours"
+                ],
                 "parameters": [
                     {
                         "name": "latlng",
@@ -2160,6 +2232,9 @@
         "/api/v1/reviews": {
             "get": {
                 "summary": "Get All Reviews",
+                "tags": [
+                    "Reviews"
+                ],
                 "description": "Retrieve all reviews. Optionally filter reviews by tour.",
                 "parameters": [
                     {
@@ -2216,6 +2291,9 @@
             },
             "post": {
                 "summary": "Create a Review",
+                "tags": [
+                    "Reviews"
+                ],
                 "description": "Create a new review. Requires authentication.",
                 "security": [
                     {
@@ -2278,6 +2356,9 @@
         "/api/v1/reviews/{id}": {
             "get": {
                 "summary": "Get a Single Review",
+                "tags": [
+                    "Reviews"
+                ],
                 "description": "Retrieve a single review by ID.",
                 "parameters": [
                     {
@@ -2334,6 +2415,9 @@
             },
             "patch": {
                 "summary": "Update a Review",
+                "tags": [
+                    "Reviews"
+                ],
                 "description": "Update a review by ID. Requires authentication and authorization.",
                 "parameters": [
                     {
@@ -2405,6 +2489,9 @@
             },
             "delete": {
                 "summary": "Delete a Review",
+                "tags": [
+                    "Reviews"
+                ],
                 "description": "Delete a review by ID. Requires authentication and authorization.",
                 "parameters": [
                     {
@@ -2452,6 +2539,9 @@
         "/api/v1/notifications": {
             "post": {
                 "summary": "Create a notification",
+                "tags": [
+                    "Notifications"
+                ],
                 "description": "Allows a user to create a notification without authentication.",
                 "requestBody": {
                     "required": true,
@@ -2534,6 +2624,9 @@
         "/api/v1/notifications/with-auth": {
             "post": {
                 "summary": "Create a notification (authenticated users)",
+                "tags": [
+                    "Notifications"
+                ],
                 "description": "Allows authenticated users to create a notification, with their name and email automatically populated.",
                 "security": [
                     {
@@ -2587,6 +2680,9 @@
         "/api/v1/notifications/{id}": {
             "get": {
                 "summary": "Get a notification by ID (admin only)",
+                "tags": [
+                    "Notifications"
+                ],
                 "description": "Retrieves a single notification by its ID and marks it as read. Only accessible by admin users.",
                 "security": [
                     {
@@ -2639,6 +2735,9 @@
             },
             "delete": {
                 "summary": "Delete a notification by ID (admin only)",
+                "tags": [
+                    "Notifications"
+                ],
                 "description": "Deletes a notification by its ID. Only accessible by admin users.",
                 "security": [
                     {
@@ -2686,6 +2785,9 @@
         "/api/v1/bookings": {
             "get": {
                 "summary": "Get all bookings (admin and lead-guide only)",
+                "tags": [
+                    "Bookings"
+                ],
                 "description": "Retrieve a list of all bookings.",
                 "responses": {
                     "200": {
@@ -2712,6 +2814,9 @@
             },
             "post": {
                 "summary": "Create a new booking (admin and lead-guide only)",
+                "tags": [
+                    "Bookings"
+                ],
                 "description": "Creates a new booking.",
                 "requestBody": {
                     "required": true,
@@ -2771,6 +2876,9 @@
         "/api/v1/bookings/{id}": {
             "get": {
                 "summary": "Get a booking by ID (admin and lead-guide only)",
+                "tags": [
+                    "Bookings"
+                ],
                 "description": "Retrieve a specific booking by its ID.",
                 "parameters": [
                     {
@@ -2818,6 +2926,9 @@
             },
             "patch": {
                 "summary": "Update a booking by ID (admin and lead-guide only)",
+                "tags": [
+                    "Bookings"
+                ],
                 "description": "Update a specific booking by its ID.",
                 "parameters": [
                     {
@@ -2889,6 +3000,9 @@
             },
             "delete": {
                 "summary": "Delete a booking by ID (admin and lead-guide only)",
+                "tags": [
+                    "Bookings"
+                ],
                 "description": "Deletes a specific booking by its ID.",
                 "parameters": [
                     {
@@ -2931,6 +3045,9 @@
         "/api/v1/bookings/checkout-session/{tourId}": {
             "post": {
                 "summary": "Get checkout session for a tour",
+                "tags": [
+                    "Bookings"
+                ],
                 "description": "Creates a checkout session for a specified tour.",
                 "parameters": [
                     {
