@@ -33,7 +33,7 @@ const router = express.Router();
 
 router.route("/verify-email").post(verifyAccount);
 
-router.route("/signup").post(signUp);
+router.route("/sign-up").post(signUp);
 
 router.route("/login").post(login);
 

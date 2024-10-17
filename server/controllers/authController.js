@@ -248,7 +248,10 @@ export const forgotPassword = catchAsync(async (req, res, next) =>
     const data = {
       user: { name: user.name },
       resetToken,
-      resetURL: `${process.env.CLIENT_URL}/reset-password/${resetToken}`,
+      // resetURL: `${process.env.CLIENT_URL}/reset-password/${resetToken}`,
+      resetURL: `${req.protocol}://${req.get(
+        'host'
+      )}/api/v1/users/reset-password/${resetToken}`
     };
 
     console.log(data.resetURL);

@@ -5,7 +5,7 @@ import User from "../models/userModel.js";
 
 export const isAuthenticated = catchAsync(async (req, res, next) =>
 {
-  
+
   let access_token;
 
   if (
@@ -16,8 +16,10 @@ export const isAuthenticated = catchAsync(async (req, res, next) =>
     access_token = req.headers.authorization.split(" ")[1];
   } else
   {
-    access_token = req.cookies.token;
+    access_token = req.cookies.access_token;
   }
+
+  console.log(access_token)
 
   if (!access_token)
     return next(new AppError("Please, login to access this resources", 401));

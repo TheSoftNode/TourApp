@@ -40,7 +40,7 @@
                                         "description": "The user’s password",
                                         "example": "password123"
                                     },
-                                    "passwordConfirm": {
+                                    "confirmPassword": {
                                         "type": "string",
                                         "description": "Confirmation of the password",
                                         "example": "password123"
@@ -50,7 +50,7 @@
                                     "name",
                                     "email",
                                     "password",
-                                    "passwordConfirm"
+                                    "confirmPassword"
                                 ]
                             }
                         }
@@ -105,39 +105,33 @@
                 }
             }
         },
-        "/api/v1/users/signup/{verify_token}": {
+        "/api/v1/users/sign-up": {
             "post": {
                 "summary": "Sign up a new user",
                 "tags": [
                     "Users"
                 ],
                 "description": "Sign up a new user by verifying the token and persisting the user data in the database.",
-                "parameters": [
-                    {
-                        "name": "verify_token",
-                        "in": "path",
-                        "required": true,
-                        "description": "The verification token sent to the user's email",
-                        "schema": {
-                            "type": "string",
-                            "example": "abc123"
-                        }
-                    }
-                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "authorization": {
+                                    "activation_token": {
                                         "type": "string",
-                                        "description": "Bearer token from email verification",
-                                        "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                        "description": "activation token from email verification",
+                                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                    },
+                                    "activation_Code": {
+                                        "type": "string",
+                                        "description": "activation code from verification",
+                                        "example": "1234"
                                     }
                                 },
                                 "required": [
-                                    "authorization"
+                                    "activation_token",
+                                    "activation_Code"
                                 ]
                             }
                         }
@@ -454,7 +448,7 @@
             }
         },
         "/api/v1/users/update-password": {
-            "post": {
+            "patch": {
                 "summary": "Update user password",
                 "tags": [
                     "Users"
@@ -476,7 +470,7 @@
                                         "description": "The new password the user wants to set",
                                         "example": "newPassword123"
                                     },
-                                    "passwordConfirm": {
+                                    "confirmPassword": {
                                         "type": "string",
                                         "description": "Confirmation of the new password",
                                         "example": "newPassword123"
@@ -485,7 +479,7 @@
                                 "required": [
                                     "oldPassword",
                                     "newPassword",
-                                    "passwordConfirm"
+                                    "confirmPassword"
                                 ]
                             }
                         }
@@ -688,7 +682,7 @@
                                         "description": "New password for the user",
                                         "example": "newPassword123"
                                     },
-                                    "passwordConfirm": {
+                                    "confirmPassword": {
                                         "type": "string",
                                         "description": "Confirmation of the new password",
                                         "example": "newPassword123"
@@ -1879,7 +1873,7 @@
                 }
             }
         },
-        "/api/v1/top-5-cheap": {
+        "/api/v1/tours/top-5-cheap": {
             "get": {
                 "summary": "Get top 5 cheap tours",
                 "tags": [
@@ -1922,7 +1916,7 @@
                 }
             }
         },
-        "/api/v1/tour-stats": {
+        "/api/v1/tours/tour-stats": {
             "get": {
                 "summary": "Get tour statistics",
                 "tags": [
@@ -1971,9 +1965,9 @@
                 }
             }
         },
-        "/api/v1/monthly-plan/{year}": {
+        "/api/v1/tours/monthly-plan/{year}": {
             "get": {
-                "summary": "Get monthly plan for a year",
+                "summary": "Get monthly plan for a year (available only for admin, guide and lead-guide)",
                 "tags": [
                     "Tours"
                 ],
@@ -2054,7 +2048,7 @@
                 }
             }
         },
-        "/api/v1/tours-within/{distance}/center/{latlng}/unit/{unit}": {
+        "/api/v1/tours/tours-within/{distance}/center/{latlng}/unit/{unit}": {
             "get": {
                 "summary": "Get tours within a certain distance",
                 "tags": [
@@ -2146,7 +2140,7 @@
                 }
             }
         },
-        "/api/v1/distances/{latlng}/unit/{unit}": {
+        "/api/v1/tours/distances/{latlng}/unit/{unit}": {
             "get": {
                 "summary": "Get distances to all tours",
                 "tags": [
