@@ -8,7 +8,7 @@ export default class Email
   {
     this.to = user.email;
     this.data = data;
-    this.from = `Arowolo Kehinde <${process.env.SMTP_MAIL}>`;
+    this.from = `Theophilus<${process.env.SMTP_MAIL}>`;
   }
 
   newTransport()
